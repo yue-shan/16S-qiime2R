@@ -1,0 +1,5 @@
+The following four input is required:
+1. A table file,in either .qza or .tsv format. This should be the table.qza from dada2 analysis. prior to that I use qiime2 to analyze the fastq data. Note that qiime2 can transform qza to tsv. First convert qza to qzv, then view qzv in chrome, and download the tsv file. The table could be already rarefied in qiime2 or not rarefied. We can rarefy it in R. 
+2. A metadata file, in .tsv or .txt. 
+3. A Taxonomy.qza file, this could be downloaded from qiime2 website
+4. A rooted-tree.qza file. 
