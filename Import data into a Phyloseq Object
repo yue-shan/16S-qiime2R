@@ -1,0 +1,31 @@
+# Read Metadata
+metadata<-read_q2metadata("metadata.tsv")
+  head(metadata)
+
+# Read OTU table
+OTUs<-read_qza("fecal-table.qza")
+  OTUs$data[1:10,1:15] #show first 10 taxa within first 15 samples
+
+# Read Taxonomy
+taxonomy<-read_qza("taxonomy.qza")
+head(taxonomy$data)
+
+#We can also import these data from txt or excel files rather than Qiime2. The goal is to create Phyloseq object. See: https://vaulot.github.io/tutorials/Phyloseq_tutorial.html
+
+#Creating a Phyloseq Object
+phylo<-qza_to_phyloseq(
+  features="fecal-table.qza",
+  tree="rooted-tree.qza",
+  "taxonomy.qza",
+  metadata = "metadata.tsv")
+phylo
+#Here we created an object named phylo, which is a matrix 
+
+rank_names(phylo) 
+sample_variables(phylo)
+sample_names(phylo)
+get_taxa_unique(phylo, "Family")
+tax_table(phylo)[1:40] 
+levels(sample_data(phylo)$group)
+levels(sample_data(phylo)$Genotype)
+#group and Genotype are the columns from the metadata file.
