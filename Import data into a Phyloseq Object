@@ -2,7 +2,7 @@
 metadata<-read_q2metadata("metadata.tsv")
   head(metadata)
 
-# Read OTU table
+# Read OTU table, fan be directly from .qza file or .tsv file
 OTUs<-read_qza("fecal-table.qza")
   OTUs$data[1:10,1:15] #show first 10 taxa within first 15 samples
 
@@ -19,7 +19,7 @@ phylo<-qza_to_phyloseq(
   "taxonomy.qza",
   metadata = "metadata.tsv")
 phylo
-#Here we created an object named phylo, which is a matrix 
+#Here we created an object named phylo, which is a matrix contains sample ID and metadata info, abundance of each OTU in each sample, and their taxonomy information.
 
 rank_names(phylo) 
 sample_variables(phylo)
