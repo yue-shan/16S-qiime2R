@@ -1,3 +1,5 @@
+library(devtools)
+devtools::install_github("jbisanz/qiime2R")
 library(qiime2R)
 library(readr) 
 library(ape)
