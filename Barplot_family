@@ -1,0 +1,50 @@
+
+#Bar plot
+#Take top 200 OTU
+phylo_rarefy_top <- names(sort(taxa_sums(phylo), TRUE)[1:200])
+phylo_rarefy_top200 <-prune_taxa(phylo_rarefy_top, phylo)
+
+Top200 <-
+  plot_bar(phylo_rarefy_top200,  fill="Family")+
+  geom_bar(aes(color=order, fill=family), stat="identity", position="stack")+
+  theme(legend.position="bottom",
+        legend.text = element_text(size = 4),
+        legend.key.size = unit(0.1, "cm"),legend.key.height = unit(0.1, "cm"))
+
+phylo_rarefy_top200_merge = merge_samples(phylo_rarefy_top200, "TreatmentWeek")
+sample_data(phylo_rarefy_top200_merge)$TreatmentWeek <- levels(sample_data(phylo_rarefy_top200)$TreatmentWeek)
+phylo_rarefy_top200_merge_nor = transform_sample_counts(phylo_rarefy_top50_merge, function(x) 100 * x/sum(x))
+
+Top200_phylo <-
+  plot_bar(phylo_rarefy_top200_merge_nor,  fill = "Family") + 
+  geom_bar(aes(color=Order, fill=Family), stat="identity", position="stack")+
+  theme(legend.text = element_text(size = 12),
+        legend.key.size = unit(0.5, "cm"),legend.key.height = unit(0.5, "cm"),
+        axis.text.x = element_text(size=12,angle = 0, hjust = 0.5, vjust = 0))
+pd <- psmelt(phylo_rarefy_top200_merge_nor)
+head(pd200)
+#created an object pd200
+
+ggplot(pd200, aes(x=Sample, y=Abundance, fill=Family)) +
+    geom_bar(stat="identity") +
+ theme(axis.title.y = element_blank(), 
+        axis.text.y = element_text(size=8,angle=0,hjust=0.5,vjust=0.5,color="Black"),
+        axis.text.x = element_text(size=8,color="Black"),
+        axis.ticks = element_blank(),
+        
+        legend.text = element_text(size = 10),
+        legend.key.size = unit(0.5, "cm"),legend.key.height = unit(0.5, "cm")
+        #legend.position="bottom"
+        )+
+        
+        #panel.grid.minor = element_blank(),
+        #panel.grid.major = element_line(linetype = "solid",size=0.1,colour = "grey"),
+        #panel.background = element_rect(fill = "white", colour = "grey", size=0.3),
+        
+        #strip.background=element_rect(fill = "grey", colour = "grey"),
+        #strip.text=element_text(size=10,color="Black")) +
+  
+   # facet_grid(~Family , scales="free", space="free") +  coord_flip() 
+  
+facet_wrap(~Family, nrow=3) +
+  coord_flip()
