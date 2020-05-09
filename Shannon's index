@@ -1,0 +1,26 @@
+shannon=
+  plot_richness(phylo,  x = "Treatment", measures=c("shannon"), nrow=1) +geom_boxplot()  + 
+  #ggtitle("Shannon's index") +
+  scale_color_manual(values = c("cornflowerblue", viridis::viridis(6)))+
+  #theme_q2r() +
+  theme(axis.title.y = element_text(size=8,color="Black"),
+        axis.title.x = element_blank(),
+        axis.text.y = element_text(size=8,color="Black"),
+        axis.text.x = element_text(size=8,color="Black"),
+        axis.ticks = element_blank(),
+        
+        legend.title = element_blank(),
+        legend.text = element_text(size = 8),
+        legend.key.size = unit(0.5, "cm"),legend.key.height = unit(0.5, "cm"),
+        #legend.position="bottom",
+        
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_line(linetype = "solid",size=0.2,colour = "grey"),
+        panel.background = element_rect(fill = "white", colour = "black", size=1.2),
+        
+        strip.text = element_blank()) 
+  
+#+scale_y_continuous(limits = c(0, 7))
+
+shannon$layers <- shannon$layers[-1]
+shannon
