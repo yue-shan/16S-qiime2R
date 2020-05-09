@@ -35,4 +35,5 @@ PCoA_unifrac_W_wrap=
         axis.ticks = element_blank()) +
   facet_wrap(~Week)+stat_ellipse()
 print(PCoA_unifrac_W_wrap)
+## to use defined color, try: scale_color_manual(values= c("darkred","darkblue")+
 #It's a better habit to define two separate variables for the wrap and not wrap. Otherwise you overwrite the first one and won't be able to make side-by-side.
