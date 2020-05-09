@@ -1,0 +1,30 @@
+#define a variable named "Observed", x axis and color can be the parameter of interest.
+Observed <-
+  plot_richness(phylo, x = "Treatment",color = "Treatment",
+                       measures=c("Observed"), nrow=1) +geom_boxplot()+
+  #ggtitle("Observed OTUs") +
+  scale_color_manual(values = c("blue", viridis::viridis(6)))+
+  #theme_q2r() +
+  theme(axis.title.y = element_text(size=8,color="Black"),
+      axis.title.x = element_blank(),
+      axis.text.y = element_text(size=8,color="Black"),
+      axis.text.x = element_text(size=8,color="Black"),
+      axis.ticks = element_blank(),
+      
+      legend.title = element_blank(),
+      legend.text = element_text(size = 8),
+      legend.key.size = unit(0.5, "cm"),legend.key.height = unit(0.5, "cm"),
+      #legend.position="bottom",
+      
+      panel.grid.minor = element_blank(),
+      panel.grid.major = element_line(linetype = "solid",size=0.2,colour = "grey"),
+      panel.background = element_rect(fill = "white", colour = "black", size=1.2),
+      
+      strip.text = element_blank())
+
+Observed$layers <- Observed$layers[-1]
+Observed
+ 
+# Remove first laywer 
+# see https://github.com/joey711/phyloseq/issues/836
+# https://stackoverflow.com/questions/10493084/ggplot2-jitter-and-position-dodge-together
