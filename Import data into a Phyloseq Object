@@ -1,5 +1,5 @@
 # Read Metadata
-metadata<-read_q2metadata("metadata.tsv")
+metadata<-read_q2metadata("metadata.txt")
   head(metadata)
 
 # Read OTU table, fan be directly from .qza file or .tsv file
@@ -14,14 +14,15 @@ head(taxonomy$data)
 
 #Creating a Phyloseq Object
 phylo<-qza_to_phyloseq(
-  features="fecal-table.qza",
+  features="rarefied_table.qza",
   tree="rooted-tree.qza",
   "taxonomy.qza",
-  metadata = "metadata.tsv")
+  metadata = "metadata.txt")
 phylo
 #Here we created an object named phylo, which is a matrix contains sample ID and metadata info, abundance of each OTU in each sample, and their taxonomy information.
 
 #below we are listing different parameters of 'phylo':
+require(phyloseq)
 rank_names(phylo) 
 sample_variables(phylo)
 sample_names(phylo)
