@@ -1,0 +1,5 @@
+#exam if sample is rarified (I started from rarefied_table.qza so just double check here)
+plot(sort(sample_sums(phylo), TRUE), type = "h", 
+     ylab = "Numbers of reads", xlab = "samples", ylim = c(0, 6000))
+#the "6000" here is the y-axis scale. It should be larger than the rarefication number. 
+#Should see that all samples have the same amount of reads. Otherwise check rarefication.
