@@ -8,7 +8,7 @@ PCoA_unifrac_W=
                   color =  "Treatment") +
   geom_point(size = 4, alpha = 1) + 
   #ggtitle("fecal") +
-  #scale_color_manual(values=c ("blue","red"))  +
+  #scale_color_manual(values=c (taxa_palette_mg))  +
   scale_colour_viridis_d()+
   theme_q2r() +
   theme(legend.title = element_blank(),
