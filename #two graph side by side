@@ -1,0 +1,4 @@
+#two graph side by side
+require(gridExtra)
+grid.arrange(Observed,  shannon, nrow=2)
+#nrow means how many nrow we want. ncol is how many column.
