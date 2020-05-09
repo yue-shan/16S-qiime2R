@@ -1,0 +1,23 @@
+ggplot(pd, aes(x=Sample, y=Abundance, fill=Order)) +
+    geom_bar(stat="identity") +
+ theme(axis.title.y = element_blank(), 
+        axis.text.y = element_text(size=8,angle=0,hjust=0.5,vjust=0.5,color="Black"),
+        axis.text.x = element_text(size=8,color="Black"),
+        axis.ticks = element_blank(),
+        
+        legend.text = element_text(size = 10),
+        legend.key.size = unit(0.5, "cm"),legend.key.height = unit(0.5, "cm")
+        #legend.position="bottom"
+        )+
+        
+        #panel.grid.minor = element_blank(),
+        #panel.grid.major = element_line(linetype = "solid",size=0.1,colour = "grey"),
+        #panel.background = element_rect(fill = "white", colour = "grey", size=0.3),
+        
+        #strip.background=element_rect(fill = "grey", colour = "grey"),
+        #strip.text=element_text(size=10,color="Black")) +
+  
+   # facet_grid(~Order , scales="free", space="free") +  coord_flip() 
+  
+facet_wrap(~Order, nrow=2) +
+  coord_flip()
