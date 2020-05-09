@@ -1,0 +1,24 @@
+#Take top 50 OTU
+phylo_rarefy_top <- names(sort(taxa_sums(phylo), TRUE)[1:50])
+phylo_rarefy_top50 <-prune_taxa(phylo_rarefy_top, phylo)
+
+Top50 <-
+  plot_bar(phylo_rarefy_top50,  fill="Family")+
+  geom_bar(aes(color=order, fill=family), stat="identity", position="stack")+
+  theme(legend.position="bottom",
+        legend.text = element_text(size = 4),
+        legend.key.size = unit(0.1, "cm"),legend.key.height = unit(0.1, "cm"))
+
+phylo_rarefy_top50_merge = merge_samples(phylo_rarefy_top50, "TreatmentWeek")
+sample_data(phylo_rarefy_top50_merge)$GroupWeek <- levels(sample_data(phylo_rarefy_top50)$GroupWeek)
+phylo_rarefy_top50_merge_nor = transform_sample_counts(phylo_rarefy_top50_merge, function(x) 100 * x/sum(x))
+
+Top50_phylo <-
+  plot_bar(phylo_rarefy_top50_merge_nor,  fill = "Family") + 
+  geom_bar(aes(color=Order, fill=Family), stat="identity", position="stack")+
+  theme(legend.text = element_text(size = 12),
+        legend.key.size = unit(0.5, "cm"),legend.key.height = unit(0.5, "cm"),
+        axis.text.x = element_text(size=12,angle = 0, hjust = 0.5, vjust = 0))
+pd <- psmelt(phylo_rarefy_top50_merge_nor)
+head(pd)
+
