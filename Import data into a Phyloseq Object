@@ -3,7 +3,7 @@ metadata<-read_q2metadata("metadata.txt")
   head(metadata)
 
 # Read OTU table, fan be directly from .qza file or .tsv file
-OTUs<-read_qza("rarified_table.qza")
+OTUs<-read_qza("rarefied_table.qza")
   OTUs$data[1:10,1:15] #show first 10 taxa within first 15 samples
 
 # Read Taxonomy
