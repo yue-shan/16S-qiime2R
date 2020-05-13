@@ -37,3 +37,23 @@ print(PCoA_unifrac_W_wrap)
 #stat_ellipse will draw a circle around the cluster.
 ## to use defined color, try: scale_color_manual(values= c("darkred","darkblue")+
 #It's a better habit to define two separate variables for the wrap and not wrap. Otherwise you overwrite the first one and won't be able to make side-by-side.
+
+#Side by side graph
+require(gridExtra)
+grid.arrange(PCoA_unifrac_W,  PCoA_unifrac_W_wrap, nrow=2)
+
+#Below is the facet_non-wrap graph. 
+PCoA_unifrac_W_facet=
+  plot_ordination(phylo, phylo_rarefy_unifrac_W, 
+                  color =  "Treatment") +
+  geom_point(size = 4, alpha = 1) + 
+  #ggtitle("fecal") +
+  #scale_color_manual(values=taxa_palette_mg)  +
+  scale_colour_viridis_d()+
+  theme_q2r() +
+  theme(legend.title = element_blank(),
+        legend.text = element_text(size = 12),
+        axis.text = element_text(size = 12),
+        axis.ticks = element_blank()) +
+  facet_wrap(~Source)
+print(PCoA_unifrac_W_facet)
