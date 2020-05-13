@@ -13,7 +13,7 @@ Top200 <-
 
 phylo_rarefy_top200_merge = merge_samples(phylo_rarefy_top200, "TreatmentWeek")
 sample_data(phylo_rarefy_top200_merge)$TreatmentWeek <- levels(sample_data(phylo_rarefy_top200)$TreatmentWeek)
-phylo_rarefy_top200_merge_nor = transform_sample_counts(phylo_rarefy_top50_merge, function(x) 100 * x/sum(x))
+phylo_rarefy_top200_merge_nor = transform_sample_counts(phylo_rarefy_top200_merge, function(x) 100 * x/sum(x))
 
 Top200_phylo <-
   plot_bar(phylo_rarefy_top200_merge_nor,  fill = "Family") + 
@@ -21,7 +21,7 @@ Top200_phylo <-
   theme(legend.text = element_text(size = 12),
         legend.key.size = unit(0.5, "cm"),legend.key.height = unit(0.5, "cm"),
         axis.text.x = element_text(size=12,angle = 0, hjust = 0.5, vjust = 0))
-pd <- psmelt(phylo_rarefy_top200_merge_nor)
+pd200 <- psmelt(phylo_rarefy_top200_merge_nor)
 head(pd200)
 #created an object pd200
 
