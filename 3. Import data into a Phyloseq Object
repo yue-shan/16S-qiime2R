@@ -28,30 +28,10 @@ sample_variables(phylo)
 sample_names(phylo)
 get_taxa_unique(phylo, "Family")[1:10]
 tax_table(phylo)[1:10] 
-levels(sample_data(phylo)$group)
+levels(sample_data(phylo)$TreatmentWeek)
 levels(sample_data(phylo)$Genotype)
 
 #group and Genotype are the columns from the metadata file.
 
-#check the value of the following
-#phyloseq-class experiment-level object
-#otu_table()   OTU Table:         [ 353 taxa and 39 samples ]
-#sample_data() Sample Data:       [ 39 samples by 8 sample variables ]
-#tax_table()   Taxonomy Table:    [ 353 taxa by 7 taxonomic ranks ]
-#phy_tree()    Phylogenetic Tree: [ 353 tips and 351 internal nodes ]
- 
-#rank_names(phylo) 
-# [1] "Kingdom" "Phylum"  "Class"   "Order"   "Family"  "Genus"   "Species"
-# sample_variables(phylo)
-# [1] "Group"         "Source"        "EarTag"        "GroupByTreat" 
-# [5] "GroupBySample" "GroupWeek"     "Genotype"      "Treatment"    
-# sample_names(phylo)
-# [1] "A5267-4"    "A5267-6"    "A5267-8"    "A5272-4"    "A5272-6"    "A5272-8"   
-
-> get_taxa_unique(phylo, "Family")
-#[1] NA                       "Acetobacteraceae"       "Alcaligenaceae"        
-#[4] "Enterobacteriaceae"     "Verrucomicrobiaceae"    "F16"                   
-#[7] "Bifidobacteriaceae"     "Coriobacteriaceae"      "Dehalobacteriaceae"    
-#levels(sample_data(phylo)$Treatment)
-#[1] "IL10-B.frag" "IL10-SPF"
+#check the value of the the above parameter
 # If any of the above is "NULL" check the original file. 
