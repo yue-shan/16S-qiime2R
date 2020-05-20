@@ -1,3 +1,5 @@
+require(qiime2r)
+
 # Read Metadata
 metadata<-read_q2metadata("metadata.txt")
   head(metadata)
@@ -21,14 +23,15 @@ phylo<-qza_to_phyloseq(
 phylo
 #Here we created an object named phylo, which is a matrix contains sample ID and metadata info, abundance of each OTU in each sample, and their taxonomy information.
 
-#below we are listing different parameters of 'phylo':
 require(phyloseq)
+#below we name different elements of 'phylo':
 rank_names(phylo) 
 sample_variables(phylo)
 sample_names(phylo)
 get_taxa_unique(phylo, "Family")[1:10]
 tax_table(phylo)[1:10] 
 levels(sample_data(phylo)$TreatmentWeek)
+#sample_data(phylo) is a dataframe with multiple factors, in each $factor, there are different levels)
 levels(sample_data(phylo)$Genotype)
 
 #group and Genotype are the columns from the metadata file.
