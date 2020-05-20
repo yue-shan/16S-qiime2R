@@ -30,9 +30,12 @@ sample_variables(phylo)
 sample_names(phylo)
 get_taxa_unique(phylo, "Family")[1:10]
 tax_table(phylo)[1:10] 
+sample_data(Phylo)
+
+
 levels(sample_data(phylo)$TreatmentWeek)
-#sample_data(phylo) is a dataframe with multiple factors, in each $factor, there are different levels)
 levels(sample_data(phylo)$Genotype)
+# The levels are ordered alphabetically. You can reorganize the order of the levels by define a new vector for them. For example, new -> c(sample_data(phylo)$TreatmentWeek, levels = c("a","b")).
 
 #group and Genotype are the columns from the metadata file.
 
