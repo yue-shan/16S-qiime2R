@@ -19,4 +19,4 @@ head(pd_df)
 pd_df$se<-pd_df$sd/sqrt(7)
 #add standard error, 7 is the N-1 here.
 
-ggplot(pd_df, aes(x=Sample, y=Abundance, fill=Family)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=Abundance-se, ymax=Abundance+se),width=.2, position=position_dodge(.9), alpha=.5) + facet_wrap("Family")
+ggplot(pd_df, aes(x=Sample, y=Abundance, fill=Family)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=Abundance-se, ymax=Abundance+se),width=.2, position=position_dodge(.9), alpha=.5) + facet_wrap("Family")+ coord_flip() + theme ()
