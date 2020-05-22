@@ -30,7 +30,7 @@ sample_variables(phylo)
 sample_names(phylo)
 get_taxa_unique(phylo, "Family")[1:10]
 tax_table(phylo)[1:10] 
-sample_data(Phylo)
+sample_data(phylo)
 
 
 levels(sample_data(phylo)$TreatmentWeek)
