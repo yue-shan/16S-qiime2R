@@ -27,7 +27,7 @@ head(pd)
 str(pd)
 #created an object pd
 
-ggplot(pd200, aes(x=Sample, y=Abundance, fill=Family)) +
+ggplot(pd, aes(x=Sample, y=Abundance, fill=Family)) +
     geom_bar(stat="identity") +
  theme(axis.title.y = element_blank(), 
         axis.text.y = element_text(size=8,angle=0,hjust=0.5,vjust=0.5,color="Black"),
