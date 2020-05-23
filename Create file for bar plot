@@ -1,24 +1,43 @@
-#Take top 50 OTU
+str(taxa_sums(phylo))
+#taxa_sums(phylo) has the overall list of OTUs
+
 phylo_rarefy_top <- names(sort(taxa_sums(phylo), TRUE)[1:50])
+str(phylo_rarefy_top)
+#Take top 50 OTU names, 
+
 phylo_rarefy_top50 <-prune_taxa(phylo_rarefy_top, phylo)
+#phylo_rarefy_top50 has the same structure of phylo, but truncated to the most abundant OTUs.Total number of sample are the same. 
+phylo_rarefy_top50
+#this will show the number of samples in the object. 
+head(otu_table(phylo_rarefy_top50))
+#can examine the individual data frames in phylo_rarefy_top50. In the otu_table, you can see that the abundance is the number of reads.
 
 Top50 <-
   plot_bar(phylo_rarefy_top50,  fill="Family")+
-  geom_bar(aes(color=order, fill=family), stat="identity", position="stack")+
+  geom_bar(aes(color=Order, fill=Family), stat="identity", position="stack")+
   theme(legend.position="bottom",
         legend.text = element_text(size = 4),
         legend.key.size = unit(0.1, "cm"),legend.key.height = unit(0.1, "cm"))
+print (Top50)
+# the Y-axis is abundance but the scale is not by percentage (number of reads) 
+phylo_rarefy_top50_ratio = transform_sample_counts(phylo_rarefy_top50, function(x) 100 * x/sum(x))
 
-phylo_rarefy_top50_merge = merge_samples(phylo_rarefy_top50, "TreatmentWeek")
-sample_data(phylo_rarefy_top50_merge)$GroupWeek <- levels(sample_data(phylo_rarefy_top50)$GroupWeek)
-phylo_rarefy_top50_merge_nor = transform_sample_counts(phylo_rarefy_top50_merge, function(x) 100 * x/sum(x))
+
+# Method 1: Merge sample to get total reads of multiple sample, and then calculate ratio. Note that this method cann't calculate variation as we add up all samples. 
+#phylo_rarefy_top50_merge = merge_samples(phylo_rarefy_top50, "Individual")
+# Total OTU will be still 50, but total number of sample will reduce to the levels of factor you choose (in the ""). So standard deviation has no meaning later. 
+#sample_data(phylo_rarefy_top50_merge)$GroupWeek <- levels(sample_data(phylo_rarefy_top50)$GroupWeek)
+#phylo_rarefy_top50_merge_nor = transform_sample_counts(phylo_rarefy_top50_merge, function(x) 100 * x/sum(x))
 
 Top50_phylo <-
-  plot_bar(phylo_rarefy_top50_merge_nor,  fill = "Family") + 
+  plot_bar(phylo_rarefy_top50_ratio,  fill = "Family") + 
   geom_bar(aes(color=Order, fill=Family), stat="identity", position="stack")+
   theme(legend.text = element_text(size = 12),
         legend.key.size = unit(0.5, "cm"),legend.key.height = unit(0.5, "cm"),
         axis.text.x = element_text(size=12,angle = 0, hjust = 0.5, vjust = 0))
-pd <- psmelt(phylo_rarefy_top50_merge_nor)
+print(Top50_phylo)
+#Top50_phylo is very similar to qiime bar chart, it has all samples but aggregate the OTUs into Family as we asked. 
+pd <- psmelt(phylo_rarefy_top50_ratio)
 head(pd)
-
+write.csv(pd,"pd.csv")
+#pd have all information needed in one data frame. It's similar to the frequency table from qiime2 but layed out in a R friendly way. 
