@@ -1,11 +1,15 @@
-# PCoA_unifrac_W
-phylo_rarefy_unifrac_W = ordinate(phylo, method="PCoA", 
-                                  distance="unifrac", weighted=T)
+# create a coordination of the object "phylo" 
 
+phylo_rarefy_unifrac_W = ordinate(phylo, method="PCoA", 
+                                  distance="unifrac", weighted=TRUE)
+# ordinate is a function in phyloseq. 
+# the default method is "DCA", where it also supports "CCA", "RDA", "CAP", "DPCoA", "NMDS", "MDS", "PCoA")
+# the default distance is "bray", where you can do "unifrac", "dist" etc. 
+# for unifrac, the default is unweighted, which won't account for the abundance and is more useful to detect rare species.
 
 PCoA_unifrac_W=
-  plot_ordination(phylo, phylo_rarefy_unifrac_W, 
-                  color =  "Treatment") +
+  plot_ordination(phylo, phylo_rarefy_unifrac_W,
+                  color =  "Treatment",  ) +
   geom_point(size = 4, alpha = 1) + 
   #ggtitle("fecal") +
   #scale_color_manual(values=c (taxa_palette_mg))  +
@@ -16,8 +20,8 @@ PCoA_unifrac_W=
         axis.text = element_text(size = 12),
         axis.ticks = element_blank()) 
 print(PCoA_unifrac_W)
-
-
+#plot_ordination(phyloseq object,ordination object, type = "samples", axes = 1:2, color = NULL, shape = NULL, label = NULL, title = NULL)
+# type could be others, e.g. "species", axes could be other components, e.g. 2:3.
 
 #Below is the facet_wrap graph. It will make several PCoA graphs separating by one parameter.
 PCoA_unifrac_W_wrap=
