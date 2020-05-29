@@ -9,8 +9,8 @@ phylo_rarefy_unifrac_W = ordinate(phylo, method="PCoA",
 
 PCoA_unifrac_W=
   plot_ordination(phylo, phylo_rarefy_unifrac_W,
-                  color =  "Treatment",  ) +
-  geom_point(size = 4, alpha = 1) + 
+                  color =  "Treatment", axes=1:2) +
+  geom_point(size = 3, alpha = 1) + 
   #ggtitle("fecal") +
   #scale_color_manual(values=c (taxa_palette_mg))  +
   scale_colour_viridis_d(begin = 0,end = 0.8,option = "plasma")+
@@ -27,11 +27,11 @@ print(PCoA_unifrac_W)
 #Below is the facet_wrap graph. It will make several PCoA graphs separating by one parameter.
 PCoA_unifrac_W_wrap=
   plot_ordination(phylo, phylo_rarefy_unifrac_W, 
-                  color =  "Treatment") +
-  geom_point(size = 4, alpha = 1) + 
+                  color =  "Treatment", shape= "Source", axes = 1:2) +
+  geom_point(size = 3, alpha = 1) + 
   #ggtitle("fecal") +
   #scale_color_manual(values=taxa_palette_mg)  +
-  scale_colour_viridis_d()+
+  scale_colour_viridis_d(begin = 0,end = 0.8,option = "plasma")+
   theme_q2r() +
   theme(legend.title = element_blank(),
         legend.text = element_text(size = 12),
