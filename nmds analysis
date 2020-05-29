@@ -1,0 +1,15 @@
+PCoA_nmds<-
+     plot_ordination(phylo, phylo_rarefy_nmds,
+                     color =  "Treatment", shape= "Source",) +
+     geom_point(size = 3, alpha = 1) + 
+     #ggtitle("fecal") +
+     #scale_color_manual(values=c (taxa_palette_mg))  +
+     scale_colour_viridis_d(begin = 0,end = 0.8,option = "plasma")+
+     theme_q2r() +
+     theme(legend.title = element_blank(),
+           legend.text = element_text(size = 12),
+           axis.text = element_text(size = 12),
+           axis.ticks = element_blank()) 
+PCoA_nmds+facet_wrap(~Source)+stat_ellipse()
+PCoA_nmds_wrap <-PCoA_nmds+facet_wrap(~Source)+stat_ellipse()
+grid.arrange(PCoA_nmds,PCoA_nmds_wrap,nrow=2) 
