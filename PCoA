@@ -1,5 +1,4 @@
 # create a coordination of the object "phylo" 
-
 phylo_rarefy_unifrac_W <- ordinate(phylo, method="PCoA", 
                                   distance="unifrac", weighted=TRUE)
 # ordinate is a function in phyloseq. 
