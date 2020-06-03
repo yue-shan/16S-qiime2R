@@ -1,0 +1,5 @@
+pd_rarefy <- psmelt(phylo_rarefy_top50)
+head(pd_rarefy)
+str(pd_rarefy)
+#created an object pd. pd is a data.frame, with OTU on X-axis and all other factors on the Y-axis
+#psmelt melts phyloseq objects to dataframe, usually for producing graphics with ggplot2. eg, you can pd_phylo <- psmelt (phylo).This function replies upon melt and merge in R.
