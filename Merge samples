@@ -1,0 +1,21 @@
+phylo_rarefy_top50_merge = merge_samples(phylo_rarefy_top50, "TreatmentWeek")
+
+#Will keep individual OTUs, but add all the reads of each OTU from samples with the same "TreatmentWeek" label. 
+#You won't get any error bar from this step! You just pooled all samples
+#This step can also be done with all OTU. 
+
+sample_data(phylo_rarefy_top200_merge)$TreatmentWeek <- levels(sample_data(phylo_rarefy_top200)$TreatmentWeek)
+phylo_rarefy_top200_merge_nor = transform_sample_counts(phylo_rarefy_top200_merge, function(x) 100 * x/sum(x))
+#Calculate relative frequency
+
+Top200_phylo <-
+  plot_bar(phylo_rarefy_top200_merge_nor,  fill = "Family") + 
+  geom_bar(aes(color=Order, fill=Family), stat="identity", position="stack")+
+  theme(legend.text = element_text(size = 12),
+        legend.key.size = unit(0.5, "cm"),legend.key.height = unit(0.5, "cm"),
+        axis.text.x = element_text(size=12,angle = 0, hjust = 0.5, vjust = 0))
+        
+pd <- psmelt(phylo_rarefy_top200_merge_nor)
+head(pd)
+str(pd)
+#created an object pd. pd is a data.frame, with OTU on X-axis and all other factors on the Y-axis
