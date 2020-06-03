@@ -3,8 +3,26 @@
 Name_top50<- names(sort(taxa_sums(phylo), TRUE)[1:50])
 #Name_top50 is a vector with 50 character variables. 
 phylo_rarefy_top50 <-prune_taxa(Name_top50, phylo)
-#phylo_rarefy-top50 is the same type as phylo, but with only OTUs.
+#phylo_rarefy_top50 is the same type as phylo, but with only OTUs.
 
+Top50_OTU <-
+  plot_bar(phylo_rarefy_top50,  fill="Family")+
+  geom_bar(aes(color=Order, fill=Family), stat="identity", position="stack")+
+  theme(legend.position="bottom",
+        legend.text = element_text(size = 4),
+        legend.key.size = unit(0.1, "cm"),legend.key.height = unit(0.1, "cm"))
+        
+All_OTU <-
+  plot_bar(phylo,  fill="Family")+
+  geom_bar(aes(color=Order, fill=Family), stat="identity", position="stack")+
+  theme(legend.position="bottom",
+        legend.text = element_text(size = 4),
+        legend.key.size = unit(0.1, "cm"),legend.key.height = unit(0.1, "cm")) 
+        
+require(grid.extra)
+
+        
+        
 phylo_rarefy_top200_merge = merge_samples(phylo_rarefy_top200, "TreatmentWeek")
 sample_data(phylo_rarefy_top200_merge)$TreatmentWeek <- levels(sample_data(phylo_rarefy_top200)$TreatmentWeek)
 phylo_rarefy_top200_merge_nor = transform_sample_counts(phylo_rarefy_top200_merge, function(x) 100 * x/sum(x))
