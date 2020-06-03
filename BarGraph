@@ -1,8 +1,10 @@
 pd_rarefy <- psmelt(phylo_rarefy_top50_ratio)
 head(pd_rarefy)
 str(pd_rarefy)
+write.csv(pd_rarefy,"pd_rarefy.csv")
 #created an object pd. pd is a data.frame, with OTU on X-axis and all other factors on the Y-axis
 #psmelt melts phyloseq objects to dataframe, usually for producing graphics with ggplot2. eg, you can pd_phylo <- psmelt (phylo).This function replies upon melt and merge in R.
+#check out the pd_rarefy.csv file.
 
 Sample_family <-
 ggplot(pd_rarefy, aes(x=Sample, y=Abundance, fill=Family)) +
