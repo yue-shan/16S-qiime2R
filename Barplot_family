@@ -4,13 +4,22 @@
 phylo_rarefy_top <- names(sort(taxa_sums(phylo), TRUE)[1:200])
 #phylo_rarefy_top is a vector with 200 character elements
 phylo_rarefy_top200 <-prune_taxa(phylo_rarefy_top, phylo)
+#Phylo_rarefy_top200 is an object same as phylo but with only abundant OTUs
 
 Top200 <-
   plot_bar(phylo_rarefy_top200,  fill="Family")+
-  geom_bar(aes(color=order, fill=family), stat="identity", position="stack")+
+  geom_bar(aes(color=Order, fill=Family), stat="identity", position="stack")+
   theme(legend.position="bottom",
         legend.text = element_text(size = 4),
         legend.key.size = unit(0.1, "cm"),legend.key.height = unit(0.1, "cm"))
+        
+All_OTU <-
+  plot_bar(phylo,  fill="Family")+
+  geom_bar(aes(color=Order, fill=Family), stat="identity", position="stack")+
+  theme(legend.position="bottom",
+        legend.text = element_text(size = 4),
+        legend.key.size = unit(0.1, "cm"),legend.key.height = unit(0.1, "cm"))       
+ 
 
 phylo_rarefy_top200_merge = merge_samples(phylo_rarefy_top200, "TreatmentWeek")
 sample_data(phylo_rarefy_top200_merge)$TreatmentWeek <- levels(sample_data(phylo_rarefy_top200)$TreatmentWeek)
