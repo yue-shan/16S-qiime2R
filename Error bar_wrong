@@ -10,7 +10,11 @@ data_summary <- function(data, varname, groupnames){
      return(data_sum)
  }
 
-pd_df <- data_summary(pd, varname="Abundance", 
+#First, we combine all OTUs within the same Family and same Treatment group
+pd_rarefy$TreatmentWeek_Family <- paste (pd_rarefy$TreatmentWeek, " ", pd_rarefy$Family)
+
+
+pd_df <- data_summary(pd_rarefy, varname="Abundance", 
                      groupnames=c("Sample", "Family"))
 # Convert dose to a factor variable
 head(pd_df)
