@@ -1,10 +1,10 @@
-pd_rarefy <- psmelt(phylo_rarefy_top50)
+pd_rarefy <- psmelt(phylo_rarefy_top50_ratio)
 head(pd_rarefy)
 str(pd_rarefy)
 #created an object pd. pd is a data.frame, with OTU on X-axis and all other factors on the Y-axis
 #psmelt melts phyloseq objects to dataframe, usually for producing graphics with ggplot2. eg, you can pd_phylo <- psmelt (phylo).This function replies upon melt and merge in R.
 
-Unmerge_family <-
+Sample_family <-
 ggplot(pd_rarefy, aes(x=Sample, y=Abundance, fill=Family)) +
     geom_bar(stat="identity") +
  theme(axis.title.y = element_blank(), 
@@ -17,6 +17,22 @@ ggplot(pd_rarefy, aes(x=Sample, y=Abundance, fill=Family)) +
         )+
 facet_wrap(~Family, nrow=3) +
   coord_flip()
-Unmerge_family 
-#In Unmerge_family, it graphs individual family and abundance, for each sample. 
-  
+Sample_family 
+#It graphs individual sample with family and abundance.
+#You don't need to start with rarefied OTU, try below for all OTU. The graph has much more family, but most of which is very low. Because in bar graph, we are interested in abundance, it's reasonable to focus on the high abundant OTUs. 
+
+#optional below. Just to show what happens when you don't rarefy. 
+pd_all_OTU <- psmelt(phylo_rarefy_top50_ratio)phylo_ratio
+
+ggplot(pd_all_OTU, aes(x=Sample, y=Abundance, fill=Family)) +
+    geom_bar(stat="identity") +
+ theme(axis.title.y = element_blank(), 
+        axis.text.y = element_text(size=8,angle=0,hjust=0.5,vjust=0.5,color="Black"),
+        axis.text.x = element_text(size=8,color="Black"),
+        axis.ticks = element_blank(),
+        
+        legend.text = element_text(size = 10),
+        legend.key.size = unit(0.5, "cm"),legend.key.height = unit(0.5, "cm")
+        )+
+facet_wrap(~Family, nrow=3) +
+  coord_flip()
