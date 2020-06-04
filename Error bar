@@ -2,10 +2,9 @@
 pd_rarefy$Family_Sample <- paste (pd_rarefy$Family, "_", pd_rarefy$Sample)
 #Add a "Family_Sample" Column. 
 
-
 pd_agg <- aggregate(Abundance~Sample+Family, pd_rarefy, sum)
 #aggregate(ColumnX ~ ColumnY+ColumnZ,dataFrame,function), return a dataframe with three columns: X,Y,Z. The rest of columns are lost.
-
+#Note that in "Family" there is no NA. The NAs are thrown away. 
 pd_rarefy_noAb <- subset(pd_rarefy, select = -c(Abundance))
 #Remove the Abundance and OTU column from pd_rarefy, otherwise in the merge if the Abundance is different it won't merge the row
 
@@ -40,7 +39,7 @@ data_summary <- function(DataFrame, varname, groupnames){
 # data_summary is a function that takes three variables, and return a table. 
 
 pd_df <- data_summary(pd_agg_family, varname="Abundance", 
-                     groupnames=c("Sample", "Family"))
+                     groupnames=c("TreatmentWeek", "Family"))
                      
 # Convert dose to a factor variable
 head(pd_df)
@@ -49,4 +48,15 @@ head(pd_df)
 pd_df$se<-pd_df$sd/sqrt(7)
 #add standard error, 7 is the N-1 here.
 
-ggplot(pd_df, aes(x=Sample, y=Abundance, fill=Family)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=Abundance-se, ymax=Abundance+se),width=.2, position=position_dodge(.9), alpha=.5) + facet_wrap("Family")+ coord_flip() + theme ()
+ggplot(pd_df, aes(x=TreatmentWeek, y=Abundance, fill=Family)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=Abundance-se, ymax=Abundance+se),width=.2, position=position_dodge(.9), alpha=.5) + facet_wrap("Family")+ coord_flip() + theme ()
+
+#If you want to do the phylum:
+pd_agg_p <- aggregate(Abundance~Sample+Phylum, pd_rarefy, sum)
+pd_agg_pmerge<- merge(pd_agg_p,pd_rarefy_noAb,all.x=TRUE)
+pd_agg_phylum <-distinct(pd_agg_pmerge, Phylum_Sample, .keep_all = TRUE)
+
+pd_dp <- data_summary(pd_agg_phylum, varname="Abundance", 
+                     groupnames=c("TreatmentWeek", "Phylum"))
+pd_dp$se<-pd_dp$sd/sqrt(7)
+ggplot(pd_dp, aes(x=TreatmentWeek, y=Abundance, fill=Phylum)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=Abundance-se, ymax=Abundance+se),width=.2, position=position_dodge(.9), alpha=.5) + facet_wrap("Phylum")+ coord_flip() + theme ()
+             
