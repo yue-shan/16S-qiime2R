@@ -1,0 +1,52 @@
+#First, we combine all OTUs within the same Family and same Treatment group
+pd_rarefy$Family_Sample <- paste (pd_rarefy$Family, "_", pd_rarefy$Sample)
+#Add a "Family_Sample" Column. 
+
+
+pd_agg <- aggregate(Abundance~Sample+Family, pd_rarefy, sum)
+#aggregate(ColumnX ~ ColumnY+ColumnZ,dataFrame,function), return a dataframe with three columns: X,Y,Z. The rest of columns are lost.
+
+pd_rarefy_noAb <- subset(pd_rarefy, select = -c(Abundance))
+#Remove the Abundance and OTU column from pd_rarefy, otherwise in the merge if the Abundance is different it won't merge the row
+
+pd_agg_m <- merge(pd_agg,pd_rarefy_noAb,by = c("Family","Abundance")
+# pd_agg_m <- merge(pd_agg,pd_rarefy_noAb,all.x=TRUE)
+#Merge the original dataFrame with the new dataFrame, all.x=TRUE will keep all column of X, or use "Family" and "Abundance" columns
+#One problem is that in pd_rarefy_noAb, there are multiple rows with the same "Family" and "Abundance". We will have duplicate rows (different OTU)
+
+require(dplyr)
+pd_agg_family <-distinct(pd_agg_m, Family_Sample, .keep_all = TRUE)
+#Remove the columns with the same "Family_Sample". 
+#because of the genus and species info is no longer accurate, you can remove by pd_agg_f <-subset(pd_agg_family,select = -c(Genus, Species))
+
+#pd_aggregates_2 <- aggregate(pd_rarefy, by=list(pd_rarefy$Sample_Family), FUN = mean)
+#pd_aggregates_2
+#wrong because all factor column became NA as there is no "mean" to it. 
+
+#pd_agg_m <- merge(pd_agg,pd_rarefy,all.x=TRUE) is wrong. It will return NA for all the families with multiple OTU,as the abundance is different between the dataFrame
+
+data_summary <- function(DataFrame, varname, groupnames){
+     require(plyr)
+     summary_func <- function(x, col){
+         c(mean = mean(x[[col]], na.rm=TRUE),
+           sd = sd(x[[col]], na.rm=TRUE))
+     }
+     data_sum<-ddply(DataFrame, groupnames, .fun=summary_func,
+                     varname)
+     data_sum <- rename(data_sum, c("mean" = varname))
+     #change the name of "mean" to the varname that you apply
+     return(data_sum)
+ }
+# data_summary is a function that takes three variables, and return a table. 
+
+pd_df <- data_summary(pd_agg_family, varname="Abundance", 
+                     groupnames=c("Sample", "Family"))
+                     
+# Convert dose to a factor variable
+head(pd_df)
+#pd_df is a summary table that aggregates all samples based on Sample and Family. 
+
+pd_df$se<-pd_df$sd/sqrt(7)
+#add standard error, 7 is the N-1 here.
+
+ggplot(pd_df, aes(x=Sample, y=Abundance, fill=Family)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=Abundance-se, ymax=Abundance+se),width=.2, position=position_dodge(.9), alpha=.5) + facet_wrap("Family")+ coord_flip() + theme ()
