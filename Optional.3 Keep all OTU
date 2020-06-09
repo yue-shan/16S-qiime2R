@@ -1,0 +1,18 @@
+
+All_OTU <-
+  plot_bar(phylo,  fill="Family")+
+  geom_bar(aes(color=Order, fill=Family), stat="identity", position="stack")+
+  theme(legend.position="bottom",
+        legend.text = element_text(size = 4),
+        legend.key.size = unit(0.1, "cm"),legend.key.height = unit(0.1, "cm")) 
+        
+phylo_ratio = transform_sample_counts(phylo, function(x) 100 * x/sum(x))
+All_OTU_ratio<-
+  plot_bar(phylo_ratio,  fill="Family")+
+  geom_bar(aes(color=Order, fill=Family), stat="identity", position="stack")+
+  theme(legend.position="bottom",
+        legend.text = element_text(size = 4),
+        legend.key.size = unit(0.1, "cm"),legend.key.height = unit(0.1, "cm"))
+
+grid.arrange(All_OTU,All_OTU_ratio,nrow=2)
+
