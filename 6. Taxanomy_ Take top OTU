@@ -16,7 +16,7 @@ Top50_OTU <-
 phylo_rarefy_top50_ratio = transform_sample_counts(phylo_rarefy_top50, function(x) 100 * x/sum(x))
 
 Top50_OTU_ratio<-
-  plot_bar(phylo_rarefy_top50,  fill="Family")+
+  plot_bar(phylo_rarefy_top50_ratio,  fill="Family")+
   geom_bar(aes(color=Order, fill=Family), stat="identity", position="stack")+
   theme(legend.position="bottom",
         legend.text = element_text(size = 4),
