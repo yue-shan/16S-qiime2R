@@ -24,3 +24,5 @@ Top50_OTU_ratio<-
 
 require(gridExtra)
 grid.arrange(Top50_OTU, Top50_OTU_ratio, nrow=2)
+
+#Top50_OTU_ratio is very similar to qiime bar chart, it has all samples but aggregate the OTUs into Family as we asked. 
