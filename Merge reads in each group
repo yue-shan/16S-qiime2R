@@ -1,0 +1,40 @@
+phylo_rarefy_top50_merge = merge_samples(phylo_rarefy_top50, "TreatmentWeek")
+str(phylo_rarefy_top50_merge)
+#Will keep individual OTUs, but add all the reads of each OTU from samples with the same "TreatmentWeek" label. 
+#You won't get any error bar from this step! You just pooled all samples
+#This step can also be done with all OTU. 
+#This step replaces sample ID with the "TreatmentWeek" but messes up with the rest of the column. 
+
+sample_data(phylo_rarefy_top50_merge)$TreatmentWeek <- levels(sample_data(phylo_rarefy_top50)$TreatmentWeek)
+phylo_rarefy_top50_merge_nor = transform_sample_counts(phylo_rarefy_top200_merge, function(x) 100 * x/sum(x))
+#Calculate relative frequency
+pd_merge <- psmelt(phylo_rarefy_top50_merge_nor)
+head(pd_merge)
+
+# Genus
+ggplot(pd_merge, aes(x=Sample, y=Abundance, fill=Genus)) +
+    geom_bar(stat="identity") +
+ theme(axis.title.y = element_blank(), 
+        axis.text.y = element_text(size=8,angle=0,hjust=0.5,vjust=0.5,color="Black"),
+        axis.text.x = element_text(size=8,color="Black"),
+        axis.ticks = element_blank(),
+        
+        legend.text = element_text(size = 10),
+        legend.key.size = unit(0.5, "cm"),legend.key.height = unit(0.5, "cm")
+        )+
+facet_wrap(~Genus, nrow=3) +
+  coord_flip()
+
+# Family
+ggplot(pd_merge, aes(x=Sample, y=Abundance, fill=Family)) +
+    geom_bar(stat="identity") +
+ theme(axis.title.y = element_blank(), 
+        axis.text.y = element_text(size=8,angle=0,hjust=0.5,vjust=0.5,color="Black"),
+        axis.text.x = element_text(size=8,color="Black"),
+        axis.ticks = element_blank(),
+        
+        legend.text = element_text(size = 10),
+        legend.key.size = unit(0.5, "cm"),legend.key.height = unit(0.5, "cm")
+        )+
+facet_wrap(~Family, nrow=3) +
+  coord_flip()
