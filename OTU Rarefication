@@ -1,4 +1,5 @@
-
+str(taxa_sums(phylo))
+# this data frame contains taxa information 
 #Take the top 50 most abundant OTU
 Name_top50<- names(sort(taxa_sums(phylo), TRUE)[1:50])
 #Name_top50 is a vector with 50 character variables. 
@@ -12,18 +13,6 @@ Top50_OTU <-
         legend.text = element_text(size = 4),
         legend.key.size = unit(0.1, "cm"),legend.key.height = unit(0.1, "cm"))
         
-All_OTU <-
-  plot_bar(phylo,  fill="Family")+
-  geom_bar(aes(color=Order, fill=Family), stat="identity", position="stack")+
-  theme(legend.position="bottom",
-        legend.text = element_text(size = 4),
-        legend.key.size = unit(0.1, "cm"),legend.key.height = unit(0.1, "cm")) 
-        
-require(gridExtra)
-grid.arrange(Top50_OTU, All_OTU, nrow=2)
-
-#You can see in Top50_OTU, there are less orders and families; also, the total number of reads are different in each sample, and are less than the total reads. 
-
 phylo_rarefy_top50_ratio = transform_sample_counts(phylo_rarefy_top50, function(x) 100 * x/sum(x))
 
 Top50_OTU_ratio<-
@@ -32,15 +21,6 @@ Top50_OTU_ratio<-
   theme(legend.position="bottom",
         legend.text = element_text(size = 4),
         legend.key.size = unit(0.1, "cm"),legend.key.height = unit(0.1, "cm"))
-        
-phylo_ratio = transform_sample_counts(phylo, function(x) 100 * x/sum(x))
-All_OTU_ratio<-
-  plot_bar(phylo_ratio,  fill="Family")+
-  geom_bar(aes(color=Order, fill=Family), stat="identity", position="stack")+
-  theme(legend.position="bottom",
-        legend.text = element_text(size = 4),
-        legend.key.size = unit(0.1, "cm"),legend.key.height = unit(0.1, "cm"))
 
-grid.arrange(Top50_OTU_ratio,All_OTU_ratio,nrow=2)
-
-#Now both Y-axis is the percentage and adds up to 100. 
+require(gridExtra)
+grid.arrange(Top50_OTU, Top50_OTU_ratio, nrow=2)
