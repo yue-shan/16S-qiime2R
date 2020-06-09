@@ -6,7 +6,7 @@ str(phylo_rarefy_top50_merge)
 #This step replaces sample ID with the "TreatmentWeek" but messes up with the rest of the column. 
 
 sample_data(phylo_rarefy_top50_merge)$TreatmentWeek <- levels(sample_data(phylo_rarefy_top50)$TreatmentWeek)
-phylo_rarefy_top50_merge_nor = transform_sample_counts(phylo_rarefy_top200_merge, function(x) 100 * x/sum(x))
+phylo_rarefy_top50_merge_nor = transform_sample_counts(phylo_rarefy_top50_merge, function(x) 100 * x/sum(x))
 #Calculate relative frequency
 pd_merge <- psmelt(phylo_rarefy_top50_merge_nor)
 head(pd_merge)
@@ -38,3 +38,6 @@ ggplot(pd_merge, aes(x=Sample, y=Abundance, fill=Family)) +
         )+
 facet_wrap(~Family, nrow=3) +
   coord_flip()
+
+
+#The Merge method is simplier but we lost information on error bar. 
