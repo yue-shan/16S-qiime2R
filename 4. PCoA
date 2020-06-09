@@ -1,11 +1,12 @@
-# create a coordination of the object "phylo" 
+# create a coordination of the object "phylo". 
 phylo_rarefy_unifrac_W <- ordinate(phylo, method="PCoA", 
                                   distance="unifrac", weighted=TRUE)
 # ordinate is a function in phyloseq. 
 # the default method is "DCA", where it also supports "CCA", "RDA", "CAP", "DPCoA", "NMDS", "MDS", "PCoA")
 # the default distance is "bray", where you can do "unifrac", "dist" etc. 
 # for unifrac, the default is unweighted, which won't account for the abundance and is more useful to detect rare species.
-#  Bray-Curtis dissimilarity creates a matrix in function of the how much the samples are different. Whereas the UniFrac measures the phylogenetic distance between sets of taxa in a phylogenetic tree as the fraction of the branch length of the tree that leads to descendants from either one environment.
+# Bray-Curtis dissimilarity creates a matrix in function of the how much the samples are different. Whereas the UniFrac measures the phylogenetic distance between sets of taxa in a phylogenetic tree as the fraction of the branch length of the tree that leads to descendants from either one environment.
+# The distance is purely based on the tree, not taxonomy or sample data. If you update taxonomy or sample data you don't need to run this again. 
 PCoA_unifrac_W <-
   plot_ordination(phylo, phylo_rarefy_unifrac_W,
                   color =  "Treatment",shape = "Source", axes=1:2) +
