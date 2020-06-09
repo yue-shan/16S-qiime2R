@@ -1,0 +1,31 @@
+library(plyr) 
+library(dplyr)
+#has to be in the above order
+
+data_summary <- function(DataFrame, varname, groupnames){
+     summary_func <- function(x, col){
+         c(mean = mean(x[[col]], na.rm=TRUE),
+           sd = sd(x[[col]], na.rm=TRUE))
+     }
+     data_sum<-ddply(DataFrame, groupnames, .fun=summary_func,
+                     varname)
+     data_sum <- rename(data_sum, c("mean" = varname))
+     #change the name of "mean" to the varname that you apply
+     return(data_sum)
+ }
+
+# data_summary is a function that takes three variables, and return a table. 
+
+pd_df <- data_summary(pd_agg_family, varname="Abundance", 
+                     groupnames=c("TreatmentWeek", "Family"))
+
+pd_df$se<-pd_df$sd/sqrt(7)
+#add standard error, 7 is the N-1 here.
+
+ggplot(pd_df, aes(x=TreatmentWeek, y=Abundance, fill=Family)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=Abundance-se, ymax=Abundance+se),width=.2, position=position_dodge(.9), alpha=.5) + facet_wrap("Family")+ coord_flip() + theme ()
+
+pd_dp <- data_summary(pd_agg_phylum, varname="Abundance", 
+                     groupnames=c("TreatmentWeek", "Phylum"))
+pd_dp$se<-pd_dp$sd/sqrt(7)
+ggplot(pd_dp, aes(x=TreatmentWeek, y=Abundance, fill=Phylum)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=Abundance-se, ymax=Abundance+se),width=.2, position=position_dodge(.9), alpha=.5) + facet_wrap("Phylum")+ coord_flip() + theme ()
+ 
