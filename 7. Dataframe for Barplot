@@ -1,0 +1,8 @@
+
+pd_rarefy <- psmelt(phylo_rarefy_top50_ratio)
+#psmelt will melt a phyloseq object into a dataframe. 
+# phylo_rarefy_top50_ratio is similar to phylo, except it only has the higher abundant OTU and that the abundance is in percentage. 
+head(pd_rarefy)
+write.csv(pd_rarefy,"pd_rarefy.csv")
+#pd have all information needed in one data frame. It's similar to the frequency table from qiime2 but layed out in a R friendly way. 
+
