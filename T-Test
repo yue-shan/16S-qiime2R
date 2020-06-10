@@ -1,0 +1,7 @@
+library(stats)
+help(t.test)
+attach(pd_agg_Bacteroidaceae)
+t.test(Abundance~Treatment,mu=0, alt="two.sided", conf=0.95, var.eq=F, paired=F)
+# Welch Two Sample t-test. mu = 0 means null hypothesis is that the two is equal. var.eq=F- not same number of samples. paired=F, not paired data.)
+
+
