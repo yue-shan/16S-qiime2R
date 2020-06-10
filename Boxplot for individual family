@@ -12,8 +12,12 @@ ggplot(pd_agg_Bacteroidaceae, aes(x=Source, y=Abundance, fill=Treatment)) +
         xlab("Week after gavaging B. fragilis") + ylab ("Relative Abundance %") +labs(filling = "Group")
 #boxplot for each group with calculated p-value. 
 
-#You don't need to define a smaller dataframe, you can also simply specify in the ggplot commend 
+#You don't need to define a smaller dataframe, you can also simply specify in the ggplot commend
+
 ggplot(pd_agg_family[(pd_agg_family$Family == "S24-7"), ], aes(x=Source, y=Abundance, fill=Treatment)) + 
     geom_boxplot()+ ggtitle ("S24-7 family") + 
         xlab("Week after gavaging B. fragilis") + ylab ("Relative Abundance %") +labs(filling = "Group")
-#boxplot for each group with calculated p-value. 
+
+ggplot(pd_agg_family[(pd_agg_family$Family == "Bifidobacteriaceae"), ], aes(x=Source, y=Abundance, fill=Treatment)) + 
+    geom_boxplot()+ ggtitle ("Bifidobacteriaceae") + 
+        xlab("Week after gavaging B. fragilis") + ylab ("Relative Abundance %") +labs(filling = "Group")
