@@ -21,3 +21,8 @@ ggplot(pd_agg_family[(pd_agg_family$Family == "S24-7"), ], aes(x=Source, y=Abund
 ggplot(pd_agg_family[(pd_agg_family$Family == "Bifidobacteriaceae"), ], aes(x=Source, y=Abundance, fill=Treatment)) + 
     geom_boxplot()+ ggtitle ("Bifidobacteriaceae") + 
         xlab("Week after gavaging B. fragilis") + ylab ("Relative Abundance %") +labs(filling = "Group")
+
+#To make boxplot for all family
+ggplot(pd_agg_family, aes(x=Source, y=Abundance, fill=Treatment)) + 
+    geom_boxplot()+ 
+        xlab("Week after gavaging B. fragilis") + ylab ("Relative Abundance %") +labs(filling = "Group") + facet_wrap("Family")
