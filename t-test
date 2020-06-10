@@ -1,0 +1,19 @@
+library(stats)
+help(t.test)
+# function of t.test. 
+
+#start with one Family
+pd_agg_Bacteroidaceae <-pd_agg_family[(pd_agg_family$Family == "Bacteroidaceae"),]
+head(pd_agg_Bacteroidaceae)
+# create a small data.frame for only Bacteroiaceae
+
+ggplot(pd_agg_Bacteroidaceae, aes(x=Source, y=Abundance, fill=Treatment)) + 
+    geom_boxplot()+ ggtitle ("Bacteroidaceae family") + 
+        xlab("Week after gavaging B. fragilis") + ylab ("Relative Abundance %") +labs(filling = "Group")
+#boxplot for each group with calculated p-value. 
+
+#You don't need to define a smaller dataframe, you can also simply specify in the ggplot commend 
+ggplot(pd_agg_family[(pd_agg_family$Family == "S24-7"), ], aes(x=Source, y=Abundance, fill=Treatment)) + 
+    geom_boxplot()+ ggtitle ("S24-7 family") + 
+        xlab("Week after gavaging B. fragilis") + ylab ("Relative Abundance %") +labs(filling = "Group")
+#boxplot for each group with calculated p-value. 
