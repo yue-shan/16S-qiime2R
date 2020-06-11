@@ -44,4 +44,4 @@ pd_agg_family <-distinct(pd_agg_m, Family, Sample, .keep_all = TRUE)
 #.keep_all = TRUE will keep all other columns. distinct(DataFrame, Col1, Col2). 
 
 pd_agg <- aggregate(Abundance~Sample+Family, pd_rarefy, sum)
-#aggregate(Y~factor1+2, dataframe, function) 
+#aggregate(Y~factor1+2, dataframe, function), function could be sum, mean, median etc. 
