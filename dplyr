@@ -1,0 +1,11 @@
+# %>% pipe function to filter through data
+
+pd_agg_after <-
+pd_agg_family %>% select(Abundance, Family, TreatmentWeek, Treatment, Source) %>% filter (Source!= 0) %>% mutate (Week = Source) 
+
+se <- function(x) sd(x)/sqrt(length(x))
+
+pd_agg_family %>% select(Abundance, Family, TreatmentWeek, Treatment, Source) %>% filter (Family == "Bacteroidaceae") %>% group_by (TreatmentWeek)%>% summarize(Ave = mean(Abundance),Error = se(Abundance)) 
+
+pd_agg_Bacteroidaceae_sum <-
+pd_agg_family %>% select(Abundance, Family, TreatmentWeek, Treatment, Source) %>% filter (Family == "Bacteroidaceae") %>% group_by (TreatmentWeek)%>% summarize(Ave = mean(Abundance),Error = se(Abundance)) 
