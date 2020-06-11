@@ -24,9 +24,11 @@ df_new <- df %>% mutate (df$AB =(df$A/df$B))
 #Create subset of dataframe with "subset"
 pd_rarefy_noAb <- subset(pd_rarefy, select = -c(Abundance))
 
+attach(pd_agg_family)
 # Creat subset of dataframe use %>%
-pd_agg_family %>% select(Abundance, Family, TreatmentWeek) %>% filter (Family == "Bacteroidaceae") %>% group_by (TreatmentWeek)%>%
+pd_agg_new_family <- pd_agg_family %>% select(Abundance, Family, TreatmentWeek) %>% filter (Family == "Bacteroidaceae") %>% group_by (TreatmentWeek)%>%
 #Select column and filter row. 
+detach(pd_agg_family)
 
 #merge two dataframes with "merge", by one or several variables 
 pd_agg_m1<- merge(pd_agg,pd_rarefy_noAb,by.x = c("Family", "Sample"), all.x=TRUE)
