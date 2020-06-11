@@ -1,10 +1,16 @@
+# Welch Two Sample t-test comparing the mean of each group
 library(stats)
 help(t.test)
 attach(pd_agg_Bacteroidaceae)
 t.test(Abundance~Treatment,mu=0, alt="two.sided", conf=0.95, var.eq=F, paired=F)
 # Welch Two Sample t-test. mu = 0 means null hypothesis is that the two is equal. var.eq=F- not same number of samples. paired=F, not paired data.)
+# All the above are default settings
 t.test(Abundance[TreatmentWeek=="IL10-SPF W0"], Abundance[TreatmentWeek=="IL10-SPF+BF W0"])
 t.test(Abundance[TreatmentWeek=="IL10-SPF W2"], Abundance[TreatmentWeek=="IL10-SPF+BF W2"])
 t.test(Abundance[TreatmentWeek=="IL10-SPF W4"], Abundance[TreatmentWeek=="IL10-SPF+BF W4"])
 t.test(Abundance[TreatmentWeek=="IL10-SPF W6"], Abundance[TreatmentWeek=="IL10-SPF+BF W6"])
 
+# Mann Whitney U / Wilcoxon Rank-Sum test comparing the median of each group
+wilcox.test(Abundance~Treatment, mu=0, alt="two.sided", conf=0.95, paired=F, exact=F, correct=T, conf.inf=T)
+#conf.int= T returns the confident interval, others are all default setting. 
+wilcox.test(Abundance[TreatmentWeek=="IL10-SPF W2"], Abundance[TreatmentWeek=="IL10-SPF+BF W2"],conf.int=T)
