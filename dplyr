@@ -9,3 +9,8 @@ pd_agg_family %>% select(Abundance, Family, TreatmentWeek, Treatment, Source) %>
 
 pd_agg_Bacteroidaceae_sum <-
 pd_agg_family %>% select(Abundance, Family, TreatmentWeek, Treatment, Source) %>% filter (Family == "Bacteroidaceae") %>% group_by (TreatmentWeek)%>% summarize(Ave = mean(Abundance),Error = se(Abundance)) 
+
+pd_agg_Bacteroidaceae <-
++ pd_agg_family %>% select(Abundance, Family, TreatmentWeek, Treatment, Source) %>% filter (Family == "Bacteroidaceae") %>% group_by (TreatmentWeek) 
+t.test(data=pd_agg_Bacteroidaceae, Abundance~Treatment)
+# instead of summarizing, simply filter through the data. 
