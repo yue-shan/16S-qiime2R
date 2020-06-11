@@ -1,0 +1,45 @@
+#Replace characters 
+#eg. Replace W2 with W0 with str_replace
+
+Replace W2 with W0 for a specific column (the sample time) 
+library(stringr)
+pd_df4 <-pd_df
+pd_df4$Sample = str_replace(pd_df4$Sample,"W2","W0")
+str(pd_df4)
+#this will not affect other columns
+
+# or use lapply
+pd_df2 <- data.frame(lapply(pd_df, function(x) {
+                  gsub("W2", "W", x)
+              }))
+str(pd_df2)
+#note that this will change all the column to chr object. can use as.factor() or as.logic() etc to change it after. 
+
+#Create new column with "paste"
+df$A_B <- paste(df$A, "_", df$B)
+
+#Create new column with "mutate"
+df_new <- df %>% mutate (df$AB =(df$A/df$B)) 
+
+#Create subset of dataframe with "subset"
+pd_rarefy_noAb <- subset(pd_rarefy, select = -c(Abundance))
+
+# Creat subset of dataframe use %>%
+pd_agg_family %>% select(Abundance, Family, TreatmentWeek) %>% filter (Family == "Bacteroidaceae") %>% group_by (TreatmentWeek)%>%
+#Select column and filter row. 
+
+#merge two dataframes with "merge", by one or several variables 
+pd_agg_m1<- merge(pd_agg,pd_rarefy_noAb,by.x = c("Family", "Sample"), all.x=TRUE)
+#"all.x=TRUE will keep all rows of df_x and remove the rows of df_y that doesn't match x. 
+# Assuming the x and y have different name of the column, can use by.x = c("Nickname"), by.x=c("nickname").
+
+#If the two dataframe has the same column or row but is an extension then just bind them together. 
+df_AB <- rbind(df_A, df_B)
+df_AB <- cbind(df_A, df_B)
+
+#remove duplicate with "distinct"
+pd_agg_family <-distinct(pd_agg_m, Family, Sample, .keep_all = TRUE)
+#.keep_all = TRUE will keep all other columns. distinct(DataFrame, Col1, Col2). 
+
+pd_agg <- aggregate(Abundance~Sample+Family, pd_rarefy, sum)
+#aggregate(Y~factor1+2, dataframe, function) 
