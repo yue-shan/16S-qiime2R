@@ -14,3 +14,6 @@ pd_agg_Bacteroidaceae <-
 + pd_agg_family %>% select(Abundance, Family, TreatmentWeek, Treatment, Source) %>% filter (Family == "Bacteroidaceae") %>% group_by (TreatmentWeek) 
 t.test(data=pd_agg_Bacteroidaceae, Abundance~Treatment)
 # instead of summarizing, simply filter through the data. 
+
+%>% ggplot ()... 
+#you can filter and pipe directly to ggplot. 
