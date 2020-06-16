@@ -1,0 +1,8 @@
+columnmean <- function (df){
+nc <-ncol (df)
+means <-numaric (nc)
+for (i in 1:nc) {
+means[i] <- mean(df[,i],na.rm = TRUE)
+}
+means
+}
