@@ -1,0 +1,15 @@
+hw1<-read.csv("hw1_data.csv")
+str(hw1)
+# str() will return the information of the object. Eg.'data.frame':	153 obs. of  6 variables.
+qplot(Ozone, Wind, data=(hw1), color=Month, Shape=Day,)
+# Ozone, Wind, Month are two of the variables in the dataframe. 
+qplot(Ozone,Wind,color= Month, data=(hw1),geom=c("point","smooth"))
+# Add a smooth trend line to all points.
+> qplot(Ozone,Wind, data=(hw1),facets=.~Month,color=Day)
+# make separate graph for each month.  facets=.~Month makes multiple column, facets=Month~. will make different rows.
+qplot(Ozone,data=(hw1), binwidth=5)
+# histogram. Can add fill=Month to add filling colors, but Month needs to be categorial)
+qplot(log(Ozone), log(Wind),data=(hw1))
+# log scale
+qplot(log(Ozone), log(Wind),data=(hw1))+geom_smooth(method="lm")
+#geom_smooth(method= ) add trendline. "lm" is linear
