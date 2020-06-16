@@ -1,0 +1,10 @@
+columnmean <- function (df){
+nc <-ncol (df)
+means <-numaric (nc)
+for (i in 1:nc) {
+means[i] <- mean(df[,i],na.rm = TRUE)
+}
+means
+}
+# ncol() returns the number of column; numaric (n) creates a vector with n elements (default value 0); for loop add value to all elements
+# na.rm = TRUE remove all NA values, if na.rm = FALSE, the mean of any column with NA will be NA. 
