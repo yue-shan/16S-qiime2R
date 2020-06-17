@@ -14,3 +14,48 @@ t.test(Abundance[TreatmentWeek=="IL10-SPF W6"], Abundance[TreatmentWeek=="IL10-S
 wilcox.test(Abundance~Treatment, mu=0, alt="two.sided", conf=0.95, paired=F, exact=F, correct=T, conf.inf=T)
 #conf.int= T returns the confident interval, others are all default setting. 
 wilcox.test(Abundance[TreatmentWeek=="IL10-SPF W2"], Abundance[TreatmentWeek=="IL10-SPF+BF W2"],conf.int=T)
+
+#Apply t.test to each week
+# method 1. Split pd_agg_Bacteroidaceae by Source (0,2,4,6), it will return a list of dataframe; and for all of the group, apply t-test to the abundance by treatment.  
+
+
+t.test_Abundance <- function (df, a, f) {
+ t.test(df[[a]]~df[[f]])
+}
+t.test_Abundance(pd_agg_Bacteroidaceae,a="Abundance", f="Treatment")
+Bacteroidaceae_t_list <- sapply(pd_list_Bacteroidaceae, t.test_Abundance, "Abundance", "Treatment") 
+
+t.test_pvalue <- function (df, a="Abundance", f="Treatment") {
+ l <- t.test(df[[a]]~df[[f]])
+ return(p.value = l[["p.value"]])
+}
+#set the default "a" and "f" 
+#if you want multiple elements can do this l[c("p.value","conf.int")].  
+#l[[3]]or l[["p.value"]](returns a number); l[3] or l["p.value"] Returns a list of single element
+
+#Method 1. Split and sapply
+pd_list_Bacteroidaceae <- split(pd_agg_Bacteroidaceae,pg_agg_Bacteroidaceae$Source)
+Bacteroidaceae_pvalue <- sapply(pd_list_Bacteroidaceae, t.test_pvalue, a="Abundance", f="Treatment") 
+
+#Method 2. ddply
+ddply(pd_agg_Bacteroidaceae,"Source",t.test_pvalue)
+
+#Starting from multiple family
+
+#Method 1. Split and sapply
+pd_split_family_source <- split(pd_agg_family, list(pd_agg_family$Family, pd_agg_family$Source),drop=TRUE)
+pd_split_family_source[1]
+#take a look at the first matrix of the list
+sapply(pd_split_family_source, t.test_pvalue, a="Abundance", f="Treatment") 
+#Return p-value for each week
+
+#Method 2. ddply
+Family_t <- ddply(pd_agg_family,.(pd_agg_family$Family, pd_agg_family$Source),t.test_pvalue,a="Abundance", f="Treatment")
+
+# The first one returns a list, whereas the second method returns a dataframe -- much better. 
+
+Family_t <-Family_t[order(Family_t$V1),]
+# Order by p-value 
+Significant_Family_t <- Family_t[(Family_t$V1<0.1), ]
+# p_value < 0.1
+write.csv(Significant_Family_t,"SignificantPairs.csv")
