@@ -1,3 +1,4 @@
+#qplot is not as versatile as ggplot, and as a result is used less. 
 hw1<-read.csv("hw1_data.csv")
 str(hw1)
 # str() will return the information of the object. Eg.'data.frame':	153 obs. of  6 variables.
