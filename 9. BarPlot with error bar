@@ -30,9 +30,11 @@ ggplot(pd_df, aes(x=TreatmentWeek, y=Abundance, fill=Family)) + geom_bar(stat="i
 #Inside data_summary function, there is one function that applies to each unit, then data_sum applies this unit function to all splited dataframe. 
 #Could you incoporate t-test here, and return p-value in pd_df file? 
 
-
 ggplot(pd_df, aes(x=WeekTreatment, y=Abundance, fill=Family,  color=Treatment)) + geom_bar(stat="identity") + scale_color_manual (values=c("Grey","Black")) + geom_errorbar(aes(ymin=Abundance-se, ymax=Abundance+se),width=.2, position=position_dodge(.9), alpha=.5) + facet_wrap("Family")+ coord_flip() + theme () 
 #scale_fill_manually () will allow you to change the color of the bar filling. 
+
+#Now it seems only three family are significant, how about a graph with only these three families? 
+pd_df %>% 
 
 
 #Can use Standard Deviation instead
