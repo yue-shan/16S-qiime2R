@@ -14,15 +14,36 @@ data_summary <- function(DataFrame, varname, groupnames){
      data_sum<-ddply(DataFrame, groupnames, .fun=summary_func,
                      varname)
      data_sum <- rename(data_sum, c("mean" = varname))
-     #change the name of "mean" to the varname that you apply
      return(data_sum)
  }
 
+#Inside data_summary function, there is one function that applies to each unit, then data_sum applies this unit function to all splited dataframe. 
+#Could you incoporate t-test here, and return p-value in pd_df file? 
+
 pd_df<- data_summary(pd_agg_family, varname="Abundance", 
-                     groupnames=c("TreatmentWeek", "Family"))
+                     groupnames=c("TreatmentWeek", "Family","Treatment","WeekTreatment"))
 ggplot(pd_df, aes(x=TreatmentWeek, y=Abundance, fill=Family)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=Abundance-se, ymax=Abundance+se),width=.2, position=position_dodge(.9), alpha=.5) + facet_wrap("Family")+ coord_flip() + theme ()
                      
-# Note, if it can't find the "Abundance", load all libraries and run again.
+# Note, if it can't find the "Abundance", unload plyr and load again. It might be that dplyr masked plyr.
+
+
+data_summary <- function(DataFrame, varname, groupnames){
+     summary_func <- function(x, col){
+         c(mean = mean(x[[col]], na.rm=TRUE),
+           se = se(x[[col]]))
+     }
+     data_sum<-ddply(DataFrame, groupnames, .fun=summary_func,
+                     varname)
+     data_sum <- rename(data_sum, c("mean" = varname))
+     return(data_sum)
+ }
+
+#Inside data_summary function, there is one function that applies to each unit, then data_sum applies this unit function to all splited dataframe. 
+#Could you incoporate t-test here, and return p-value in pd_df file? 
+
+
+ggplot(pd_df, aes(x=TreatmentWeek, y=Abundance, fill=Family)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=Abundance-se, ymax=Abundance+se),width=.2, position=position_dodge(.9), alpha=.5) + facet_wrap("Family")+ coord_flip() + theme ()
+       
 
 #Can use Standard Deviation instead
 data_summary_sd <- function(DataFrame, varname, groupnames){
