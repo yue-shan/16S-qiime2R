@@ -36,6 +36,9 @@ ggplot(pd_df, aes(x=WeekTreatment, y=Abundance, fill=Family,  color=Treatment)) 
 #Now it seems only three family are significant, how about a graph with only these three families? 
 pd_df_significant <- pd_df %>% filter(pd_df$Family=="Bacteroidaceae"|pd_df$Family=="S24-7"| pd_df$Family =="Lactobacillaceae")
 
+pd_significant <- ggplot(pd_df_significant, aes(x=WeekTreatment, y=Abundance, fill=Family,  color=Treatment)) + geom_bar(stat="identity") 
+
+pd_significant+ scale_color_manual (values=c("#2F4F4F","Black")) + ylim(0,60) + geom_errorbar(aes(ymin=Abundance-se, ymax=Abundance+se),width=.2, position=position_dodge(.9), alpha=.5) + facet_wrap("Family") + theme(panel.grid.major.y = element_blank(), panel.grid.minor.y = element_blank()) + coord_flip()  
 
 
 #Can use Standard Deviation instead
