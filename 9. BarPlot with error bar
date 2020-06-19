@@ -34,7 +34,8 @@ ggplot(pd_df, aes(x=WeekTreatment, y=Abundance, fill=Family,  color=Treatment)) 
 #scale_fill_manually () will allow you to change the color of the bar filling. 
 
 #Now it seems only three family are significant, how about a graph with only these three families? 
-pd_df %>% 
+pd_df_significant <- pd_df %>% filter(pd_df$Family=="Bacteroidaceae"|pd_df$Family=="S24-7"| pd_df$Family =="Lactobacillaceae")
+
 
 
 #Can use Standard Deviation instead
@@ -49,7 +50,6 @@ data_summary_sd <- function(DataFrame, varname, groupnames){
      #change the name of "mean" to the varname that you apply
      return(data_sum)
  }
-
 
 pd_dp <- data_summary(pd_agg_phylum, varname="Abundance", 
                      groupnames=c("TreatmentWeek", "Phylum"))
