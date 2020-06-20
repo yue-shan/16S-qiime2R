@@ -1,0 +1,30 @@
+list1 <- split(pd_agg_family, pd_agg_family$Family, drop=F)
+
+rename_Abundance<-function (df) {
+colnames(df)[3] <- paste("Abundance_", df$Family[1])
+}
+
+#Or below if you don't want to specify the number of column.. 
+
+rename_Abundance1<-function (df) {
+colnames(df)[colnames(df)=="Abundance"] <- paste("Abundance_", df$Family[1])
+colnames(df)[colnames(df)=="Phylum"] <- paste("Phylum_", df$Family[1])
+colnames(df)[colnames(df)=="Class"] <- paste("Class_", df$Family[1])
+colnames(df)[colnames(df)=="Order"] <- paste("Order_", df$Family[1])
+df <- subset(df, select= - c(OTU, Genus, Species, Kingdom,Family))
+return(df)
+}
+
+
+for (i in 1:length(list1)) {
+list1[[i]] <- rename_Abundance1(list1[[i]])
+}
+
+for (i in 1:length(list1)) {
+list1[[i]] <- subset (list1[[i]], select = -c(Family))
+}
+
+all_abundance <- list1[[1]]
+all_abundance <- merge(all_abundance, list1[[2]], by= c("Sample","EarTag","Group","Source","Treatment","Genotype","TreatmentWeek","WeekTreatment","Individual"))
+for (i in 2:length(list1)) { all_abundance <- merge(all_abundance, list1[[i]], by= c("Sample","EarTag","Group","Source","Treatment","Genotype","TreatmentWeek","WeekTreatment","Individual"))}
+str(all_abundance) 
