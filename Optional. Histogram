@@ -3,6 +3,13 @@
 pd_Bacteroidaceae <- pd_rarefy[pd_rarefy$Family == "Bacteroidaceae",]
 # or pd_Bacteroidaceae <- pd_rarefy %>% filter (pd_rarefy$Family == "Bacteroidaceae") 
 
+#Or better, use the following function to call for any family
+df_family <- function (x) {
+pd_interest <- pd_rarefy %>% filter(pd_rarefy$Family == x)
+return (pd_interest)
+}
+df_Bacteroidaceae <- df_family ("Bacteroidaceae")
+
 Hist <- function (mu) {
 mse <- mean((pd_Bacteroidaceae$Abundance - mu)^2, na.rm = TRUE)
 #na.rm is necessary, otherwise if you have one NA, the mean would become NA
@@ -13,3 +20,26 @@ g_Bacteroidaceae <- g_Bacteroidaceae + geom_vline (xintercept = mu) + ggtitle(pa
 g_Bacteroidaceae
 }
 manipulate (Hist(mu), mu=slider(0,40,step=1))
+
+
+Hist <- function (family, mu) {
+pd_interest <- pd_rarefy %>% filter(pd_rarefy$Family == family)
+mse <- mean((pd_interest$Abundance - mu)^2, na.rm = TRUE)
+#na.rm is necessary, otherwise if you have one NA, the mean would become NA
+sum <- sum(pd_interest$Abundance < mu, na.rm = TRUE)
+#sum can count the number of samples that fit the criteria
+g_interest <- ggplot(pd_interest,aes(x=Abundance, fill=OTU,color=Treatment)) + scale_color_manual(values=c("Grey","Black")) + geom_histogram(bins=15)
+g_interest <- g_interest + geom_vline (xintercept = mu) + ggtitle(paste("mu=", mu, "_MSE=", round(mse,2),"_Rank=",sum)) 
+g_interest
+}
+manipulate (Hist("S24-7", mu), mu=slider(0,40,step=1))
+manipulate (Hist("Lactobacillaceae", mu), mu=slider(0,60,step=1))
+
+mse <- mean((pd_interest$Abundance - mu)^2, na.rm = TRUE)
+#na.rm is necessary, otherwise if you have one NA, the mean would become NA
+sum <- sum(pd_interest$Abundance < mu, na.rm = TRUE)
+#sum can count the number of samples that fit the criteria
+g_interest <- ggplot(pd_interest,aes(x=Abundance, fill=OTU,color=Treatment)) + scale_color_manual(values=c("Grey","Black")) + geom_histogram(bins=15)
+g_interest <- g_interest + geom_vline (xintercept = mu) + ggtitle(paste("mu=", mu, "_MSE=", round(mse,2),"_Rank=",sum)) 
+g_interest
+}
