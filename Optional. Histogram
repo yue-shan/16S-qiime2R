@@ -1,0 +1,15 @@
+#Create dynamic histogram for Abudance
+
+pd_Bacteroidaceae <- pd_rarefy[pd_rarefy$Family == "Bacteroidaceae",]
+# or pd_Bacteroidaceae <- pd_rarefy %>% filter (pd_rarefy$Family == "Bacteroidaceae") 
+
+Hist <- function (mu) {
+mse <- mean((pd_Bacteroidaceae$Abundance - mu)^2, na.rm = TRUE)
+#na.rm is necessary, otherwise if you have one NA, the mean would become NA
+sum <- sum(pd_Bacteroidaceae$Abundance < mu, na.rm = TRUE)
+#sum can count the number of samples that fit the criteria
+g_Bacteroidaceae <- ggplot(pd_Bacteroidaceae,aes(x=Abundance, fill=OTU,color=Treatment)) + scale_color_manual(values=c("Grey","Black")) + geom_histogram(bins=15)
+g_Bacteroidaceae <- g_Bacteroidaceae + geom_vline (xintercept = mu) + ggtitle(paste("mu=", mu, "_MSE=", round(mse,2),"_Rank=",sum)) 
+g_Bacteroidaceae
+}
+manipulate (Hist(mu), mu=slider(0,40,step=1))
