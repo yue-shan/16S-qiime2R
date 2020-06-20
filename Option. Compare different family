@@ -15,7 +15,6 @@ df <- subset(df, select= - c(OTU, Genus, Species, Kingdom,Family))
 return(df)
 }
 
-
 for (i in 1:length(list1)) {
 list1[[i]] <- rename_Abundance1(list1[[i]])
 }
@@ -28,3 +27,9 @@ all_abundance <- list1[[1]]
 all_abundance <- merge(all_abundance, list1[[2]], by= c("Sample","EarTag","Group","Source","Treatment","Genotype","TreatmentWeek","WeekTreatment","Individual"))
 for (i in 2:length(list1)) { all_abundance <- merge(all_abundance, list1[[i]], by= c("Sample","EarTag","Group","Source","Treatment","Genotype","TreatmentWeek","WeekTreatment","Individual"))}
 str(all_abundance) 
+
+names(all_abundance) <- gsub(" ", "", names(all_abundance))
+names(all_abundance) <- gsub("-", "_", names(all_abundance))
+
+write.csv(all_abundance, "all_abundance.csv")
+ggplot(all_abundance, aes(x=Abundance_Lactobacillaceae, y=Abundance_S24_7,color=Treatment)) + geom_point()+geom_smooth(method = "lm")
