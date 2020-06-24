@@ -1,0 +1,20 @@
+# dnorm: density function of the normal distribution
+# pnorm: cumulative density function of the normal distribution
+# qnorm: quantile function of the normal distribution
+# rnorm: random sampling from the normal distribution
+
+sample.range <- 50:150
+iq.mean <- 100
+iq.sd <- 15
+iq.dist <- dnorm(sample.range, mean = iq.mean, sd = iq.sd)
+iq.df <- data.frame("IQ" = sample.range, "Density" = iq.dist)
+library(ggplot2)
+ggplot(iq.df, aes(x = IQ, y = Density)) + geom_point()
+
+#by setting lower.tail = FALSE, dnorm can be used to directly compute p-values,
+
+cdf <- pnorm(sample.range, iq.mean, iq.sd, lower.tail = FALSE)
+
+power.t.test(n=, delta=, sd=, type= "one.sample', alt= "two.sided")$power
+
+power.t.test(power=, delta=, sd=, type= "one.sample', alt= "two.sided")$n
