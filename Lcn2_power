@@ -6,12 +6,28 @@ family_lcn2 <- merge(all_abundance, lcn2, by.x= "Sample", all.x=TRUE)
 ggplot(family_lcn2, aes(x=Lcn2_ug_per_mg_feces, y=Abundance_Bacteroidaceae,color=Treatment))+ geom_point()+geom_smooth(method = "lm")
 ggplot(family_lcn2, aes(x=Lcn2_ug_per_mg_feces, y=Abundance_S24_7, color=Source))+ geom_point()+geom_smooth(method = "lm")
 
+linearMod <- lm(Abundance_S24_7 ~ Lcn2_ug_per_mg_feces, data=family_lcn2)  
+print(linearMod)
+summary(linearMod)
+
+cor(family_lcn2$Abundance_S24_7, family_lcn2$Lcn2_ug_per_mg_feces, use="complete.obs")
+[1] 0.4700847
+(R^2 = cor^2)
+
+x <- (family_lcn2$Abundance_S24_7 - mean(family_lcn2$Abundance_S24_7, na.rm=TRUE))/sd(family_lcn2$Abundance_S24_7, na.rm=TRUE)
+y <- (family_lcn2$Lcn2_ug_per_mg_feces - mean(family_lcn2$Lcn2_ug_per_mg_feces, na.rm=TRUE))/sd(family_lcn2$Lcn2_ug_per_mg_feces, na.rm=TRUE)
+ggplot(data.frame(x=x, y=y), aes(x=x, y=y))+ geom_point()+geom_smooth(method = "lm")
+cor(x,y,use="complete.obs")
+summary(lm(x~y,data.frame(x=x,y=y)))
+
 BF <-family_lcn2 %>% filter (Treatment == "IL10-SPF+BF")
 SPF <- family_lcn2 %>% filter (Treatment == "IL10-SPF")
 t.test(BF$Lcn2_ug_per_mg_feces, SPF$Lcn2_ug_per_mg_feces)
 
 ggplot(family_lcn2, aes(x=Treatment, y=Lcn2_ug_per_mg_feces, fill=Source)) + 
     geom_boxplot()+ xlab("Treatment") + ylab ("Lcn2 ug/ mg feces") + labs(filling = "Week")+ facet_wrap("Source")
+    
+ggplot(family_lcn2,aes(x=Lcn2_ug_per_mg_feces, color=Treatment)) + scale_color_manual(values=c("Red","Green")) + geom_histogram(bins=15)+ facet_wrap(~Treatment)
     
 t.test_pvalue <- function (df, a="Abundance", f="Treatment") {
  l <- t.test(df[[a]]~df[[f]])
@@ -54,7 +70,6 @@ or
 for (i in 1:4) {lcn2_pooled_sd$power[i] <- (power.t.test(delta = lcn2_g$mean[i+4]-lcn2_g$mean[i], sd = lcn2_pooled_sd$sd[i], sig.level = 0.1,  power = 0.8, type = "two.sample", alternative = "two.sided")$n)}
 lcn2_pooled_sd$power
 [1] 61.85296 25.71417 57.16644 14.27846
-
 
 
 
