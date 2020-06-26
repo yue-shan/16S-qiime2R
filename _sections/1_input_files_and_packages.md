@@ -66,5 +66,7 @@ levels(sample_data(phylo)$TreatmentWeek)
 levels(sample_data(phylo)$Genotype)
 ```
 If any of the above is "NULL", something is not right and you need to check the original file. 
-The levels are ordered alphabetically. You can reorganize the order of the levels by define a new vector for them. For example, new -> c(sample_data(phylo)$TreatmentWeek, levels = c("a","b")).
+The levels are ordered alphabetically. You can reorganize the order of the levels by define a new vector for them. For example, 
+```
+new_Treatmentweek -> c(sample_data(phylo)$TreatmentWeek, levels = c("b","a")).
 
