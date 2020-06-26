@@ -37,5 +37,5 @@ library(stringr)
 ```
 [sections](/_sections)
 
-[input files](https://github.com/yue-shan/16S-qiime2R/blob/master/_sections/1_input_files.md)
+[1.input files](https://github.com/yue-shan/16S-qiime2R/blob/master/_sections/1_input_files.md)
 
