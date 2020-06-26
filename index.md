@@ -35,7 +35,7 @@ library(sqldf)
 library(vegan) 
 library(stringr)
 ```
-[sections](/_sections)
+[sections](/tree/master/_sections)
 
 [1.input files](https://github.com/yue-shan/16S-qiime2R/blob/master/_sections/1_input_files.md)
 
