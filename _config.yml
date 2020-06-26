@@ -1,11 +1,2 @@
 theme: jekyll-theme-slate
-
-title: 16S-qiime2R
-subtitle: 
-description: This is a note 
-author: Yeva
-email: yueshan@uchicago.edu
-# You'll want to customize url and baseurl for your own site:
-baseurl: 
-url: "https://github.com/yue-shan/16S-qiime2R/"
 collections: [sections,posts]
