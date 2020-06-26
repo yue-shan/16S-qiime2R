@@ -1,2 +1,3 @@
 theme: jekyll-theme-slate
+baseurl: https://github.com/yue-shan/16S-qiime2R/master/
 collections: [sections,posts]
