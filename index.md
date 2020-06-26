@@ -35,4 +35,4 @@ library(sqldf)
 library(vegan) 
 library(stringr)
 ```
-[sections](/1.%20Input%20files.md)
+[sections](/_sections)
