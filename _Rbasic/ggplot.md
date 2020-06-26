@@ -1,3 +1,5 @@
+
+```
 gghw1<-ggplot(hw1,aes(Ozone,Wind))
 summary(gghw1)
 # gghw1 is a data structure and could be used to make different plots
@@ -15,3 +17,4 @@ hw1$Daycut<-cut(hw1$Day,cutpoints)
 #add a new variable Daycut which is categorial
 levels(hw1$Daycut)
 #should show what are the options (e.g. 1-10, 10-20)
+```
