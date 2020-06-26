@@ -36,3 +36,5 @@ library(vegan)
 library(stringr)
 ```
 [sections](/_sections)
+
+[input files](/1_input_files.md)
