@@ -1,10 +1,10 @@
 ---
 layout: page
-title: 
+title: 16S-qiime2R
 name: Home
 ---
 
-# ![Institutions Banner](assets/images/BannerLogo.png){:height="90%" width="90%"}
+#![Institutions Banner](assets/images/BannerLogo.png){:height="90%" width="90%"}
 
 Welcome to 16S-qiime2R. We will use R to analyze 16S sequencing data from qiime2 pipeline. 
 
