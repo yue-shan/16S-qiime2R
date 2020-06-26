@@ -1,4 +1,8 @@
-#Create dynamic histogram for Abudance
+#Static histogram
+ggplot(family_lcn2,aes(x=Lcn2_ug_per_mg_feces, color=Treatment)) + scale_color_manual(values=c("Red","Green")) + geom_histogram(bins=15)+ facet_wrap(~Treatment)
+ 
+
+#Dynamic histogram 
 
 pd_Bacteroidaceae <- pd_rarefy[pd_rarefy$Family == "Bacteroidaceae",]
 # or pd_Bacteroidaceae <- pd_rarefy %>% filter (pd_rarefy$Family == "Bacteroidaceae") 
