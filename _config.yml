@@ -2,12 +2,11 @@ theme: jekyll-theme-slate
 collections: [sections]
 title: 16S-qiime2R
 subtitle: 
-description: >- # this means to ignore newlines until "baseurl:"
-  This is the demo site for a Jekyll theme version of
-  HTML5 UP's sleek, responsive site template Prologue.
+description: This is a note 
+  
 author: Yeva
 email: yueshan@uchicago.edu
 
 # You'll want to customize url and baseurl for your own site:
-baseurl: "/notes"
-url: "https://github.com/yue-shan/16S-qiime2R"
+baseurl: 
+url: "https://github.com/yue-shan/16S-qiime2R/"
