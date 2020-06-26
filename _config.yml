@@ -1,4 +1,4 @@
-remote_theme: chrisbobbe/jekyll-theme-prologue
+theme: jekyll-theme-slate
 collections: [sections]
 title: 16S-qiime2R
 subtitle: 
