@@ -46,10 +46,9 @@ pd_agg_family <-distinct(pd_agg_m, Family, Sample, .keep_all = TRUE)
 pd_agg <- aggregate(Abundance~Sample+Family, pd_rarefy, sum)
 #aggregate(Y~factor1+2, dataframe, function), function could be sum, mean, median etc. 
 
-
-
-
 #sort by A (ascending) and N (descending)
 new_df <-df[order(df$A, -df$B),]
+new_df<-df%>%arrange(A)%>%arrange(desc(B))
+
 
 
