@@ -50,5 +50,10 @@ pd_agg <- aggregate(Abundance~Sample+Family, pd_rarefy, sum)
 new_df <-df[order(df$A, -df$B),]
 new_df<-df%>%arrange(A)%>%arrange(desc(B))
 
+#Rename a column
+new_df<-df %>% rename(newA=oldA)
 
+#select rows by value of a specific column
+new_df<- df%>% filter(A>1)
+new_df<- df[df$A>1,]
 
