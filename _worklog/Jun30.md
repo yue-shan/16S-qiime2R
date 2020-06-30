@@ -1,5 +1,6 @@
-Trying to fix the graph: in a facet group 
+Trying to fix the graph: in a facet group
 
+```
 df1<- pd_OTU_interest %>% filter (OTU %in% OTU_in[1])
 #list_OTU_in <-list ()
 #list_OTU_in [1] <- pd_OTU_interest %>% filter (OTU %in% OTU_in[1])
@@ -63,15 +64,15 @@ g1<-ggplot(df_control, aes(x=B_acidifaciens, y=S24_7_OTU1))+geom_point()+geom_sm
 
 g2<-ggplot(df_control, aes(x=B_acidifaciens, y=S24_7_OTU2))+geom_point()+geom_smooth(method="lm") + ggtitle(cor(df_control$B_acidifaciens,df_control$S24_7_OTU2,use="complete.obs"))
 
-g3<-ggplot(df_treat, aes(x=B_fragilis, y=S24_7_OTU1))+geom_point()+geom_smooth(method="lm") + ggtitle(cor(df_treat$B_fragilis,df_ctreatment$S24_7_OTU1,use="complete.obs"))
+g3<-ggplot(df_treat, aes(x=B_fragilis, y=S24_7_OTU1))+geom_point()+geom_smooth(method="lm") + ggtitle(cor(df_treat$B_fragilis,df_treat$S24_7_OTU1,use="complete.obs"))
 
-g4<--ggplot(df_treat, aes(x=B_fragilis, y=S24_7_OTU2))+geom_point()+geom_smooth(method="lm") + ggtitle(cor(df_treat$B_fragilis,df_treat$S24_7_OTU2,use="complete.obs"))
+g4<-ggplot(df_treat, aes(x=B_fragilis, y=S24_7_OTU2))+geom_point()+geom_smooth(method="lm") + ggtitle(cor(df_treat$B_fragilis,df_treat$S24_7_OTU2,use="complete.obs"))
 
 grid.arrange(g1,g2,g3,g4,ncol=2)
 
 g5<- ggplot(df_treat, aes(x=B_fragilis, y=Lcn2)) +geom_point() +geom_smooth(method="lm")+ggtitle(cor(df_treat$B_fragilis,df_treat$Lcn2,use="complete.obs"))
 
-g6<- ggplot(df_control, aes(x=B_acidifaciens, y=Lcn2)) +geom_point() +geom_smooth(method="lm")+ ggtitle(cor(df_control$B_acidifaciens,df_control$Lcn2,use="complete.obs"))
+g6<- ggplot(df_abundance, aes(x=B_acidifaciens, y=Lcn2)) +geom_point() +geom_smooth(method="lm")+ ggtitle(cor(df_abundance$B_acidifaciens,df_abundance$Lcn2,use="complete.obs"))
 
 g7<- ggplot(df_abundance, aes(x=S24_7_OTU1, y=Lcn2))+geom_point()+geom_smooth(method="lm")+xlim(0,10)+ggtitle(cor(df_abundance$S24_7_OTU1,df_abundance$Lcn2,use="complete.obs"))
 
@@ -79,3 +80,14 @@ g8<- ggplot(df_abundance, aes(x=S24_7_OTU2, y=Lcn2))+geom_point()+geom_smooth(me
 
 grid.arrange(g5,g6,g7,g8,ncol=2)
 
+#df_abundance[df_abundance$B_acidifaciens==0,]returns 0 row. Should use all data to conduct B_acid for linear regression:
+g9<-ggplot(df_treat, aes(x=B_acidifaciens, y=S24_7_OTU1))+geom_point()+geom_smooth(method="lm") + ggtitle(cor(df_treat$B_acidifaciens,df_treat$S24_7_OTU1,use="complete.obs"))
+
+g10<-ggplot(df_treat, aes(x=B_acidifaciens, y=S24_7_OTU2))+geom_point()+geom_smooth(method="lm") + ggtitle(cor(df_treat$B_acidifaciens,df_treat$S24_7_OTU2,use="complete.obs"))
+
+g11<-ggplot(df_abundance, aes(x=B_acidifaciens, y=S24_7_OTU1))+geom_point()+ ggtitle(cor(df_abundance$B_acidifaciens,df_abundance$S24_7_OTU1,use="complete.obs"))+geom_smooth(method="lm")
+
+g12<-ggplot(df_abundance, aes(x=B_acidifaciens, y=S24_7_OTU2))+geom_point()+ ggtitle(cor(df_abundance$B_acidifaciens,df_abundance$S24_7_OTU2,use="complete.obs"))+geom_smooth(method="lm")
+
+g11<-ggplot(df_abundance, aes(x=B_acidifaciens, y=S24_7_OTU1,color=Treatment))+geom_point()+ ggtitle(cor(df_abundance$B_acidifaciens,df_abundance$S24_7_OTU1,use="complete.obs"))
++geom_smooth(method="lm")
