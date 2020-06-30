@@ -2,4 +2,5 @@ This protocol takes OTU, number of reads, and taxanomy information from Qiime2 a
 Ordination, eg. PCoA, NMDS;
 Diversity;
 Taxanomy; 
+Linear regression; T-test and power calculation
 
