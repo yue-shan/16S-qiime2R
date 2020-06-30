@@ -52,7 +52,8 @@ new_df<-df%>%arrange(A)%>%arrange(desc(B))
 
 #Rename a column
 new_df<-df %>% rename(newA=oldA)
-names(df[2])<- "A"
+#if needed, run df<-as.data.frame(df) first
+names(df)[2]<- "A"
 colnames(df) <- c("B_fragilis", "B_acidifaciens","Erysi_1", "Erysi_2", "Lacto_1", "Lacto_2", "S24_7_OTU1","S24_7_OTU2")
 rownames(df)<-c()
 
