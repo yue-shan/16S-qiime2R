@@ -7,7 +7,7 @@ df1<- pd_OTU_interest %>% filter (OTU %in% OTU_in[1])
 
 S24_7_OTU1 <- pd_OTU_interest %>% filter (OTU %in% OTU_in[8])
 S24_7_OTU2 <- pd_OTU_interest %>% filter (OTU %in% OTU_in[9])
-# ggplot(x=S24_7_OTU1$Abundance, y=S24_7_OTU2$Abundance)+geom_point
+#ggplot(x=S24_7_OTU1$Abundance, y=S24_7_OTU2$Abundance)+geom_point
 
 
 S24_7_OTU <- merge(S24_7_OTU1, S24_7_OTU2,by= c("Sample","EarTag","Group","Source","Treatment","Genotype","TreatmentWeek","WeekTreatment","Individual"), all.x=TRUE)
@@ -38,3 +38,27 @@ ggplot(Erysi_OTU,aes(x=Abundance.x, y=Abundance.y))+xlab("Abundance of Erysipelo
  
 df_abundance <- cbind(B_fragilis$Abundance, B_acidifaciens$Abundance,Erysi_1$Abundance,Erysi_2$Abundance, Lacto_1$Abundance,Lacto_2$Abundance, S24_7_OTU1$Abundance,S24_7_OTU2$Abundance)
 head(df_abundance)
+colnames(df_abundance) <- c("B_fragilis", "B_acidifaciens","Erysi_1", "Erysi_2", "Lacto_1", "Lacto_2", "S24_7_OTU1","S24_7_OTU2")
+df_abundance<-cbind(df_abundance,B_fragilis$Lcn2_ug_per_mg_feces,B_fragilis$Treatment)
+df_abundance<-as.data.frame(df_abundance)
+names(df_abundance)[9] <-"Lcn2"
+df_abundance$V10<-B_fragilis$Treatment
+names(df_abundance)[10] <-"Treatment"
+
+
+g1<-ggplot(df_abundance, aes(x=B_acidifaciens, y=S24_7_OTU1))+geom_point()+geom_smooth(method="lm")+xlim(0.001,30)+ ggtitle(cor(df_abundance$B_acidifaciens,df_abundance$S24_7_OTU1,use="complete.obs"))
+
+g2<-ggplot(df_abundance, aes(x=B_acidifaciens, y=S24_7_OTU2))+geom_point()+geom_smooth(method="lm")+ggtitle(cor(df_abundance$B_acidifaciens,df_abundance$S24_7_OTU2,use="complete.obs"))
+
+g3<-ggplot(df_abundance, aes(x=B_fragilis, y=S24_7_OTU1))+geom_point()+geom_smooth(method="lm")+ggtitle(cor(df_abundance$B_fragilis,df_abundance$S24_7_OTU1,use="complete.obs"))
+
+g4<-ggplot(df_abundance, aes(x=B_fragilis, y=S24_7_OTU2))+geom_point()+geom_smooth(method="lm")+ggtitle(cor(df_abundance$B_fragilis,df_abundance$S24_7_OTU2,use="complete.obs"))
+
+g5<- ggplot(df_abundance%>%filter(B_fragilis>0), aes(x=B_fragilis, y=Lcn2))+geom_point()+geom_smooth(method="lm")+xlim(0,10)+ggtitle(cor(df_abundance$B_fragilis,df_abundance$Lcn2,use="complete.obs"))
+
+g6<- ggplot(df_abundance%>%filter(B_acidifaciens>0), aes(x=B_acidifaciens, y=Lcn2))+geom_point()+geom_smooth(method="lm")+xlim(0,10)+ggtitle(cor(df_abundance$B_acidifaciens,df_abundance$Lcn2,use="complete.obs"))
+
+g7<- ggplot(df_abundance, aes(x=S24_7_OTU1, y=Lcn2))+geom_point()+geom_smooth(method="lm")+xlim(0,10)+ggtitle(cor(df_abundance$S24_7_OTU1,df_abundance$Lcn2,use="complete.obs"))
+
+g8<- ggplot(df_abundance, aes(x=S24_7_OTU2, y=Lcn2))+geom_point()+geom_smooth(method="lm")+ggtitle(cor(df_abundance$S24_7_OTU2,df_abundance$Lcn2,use="complete.obs"))
+
