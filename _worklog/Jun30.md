@@ -106,3 +106,11 @@ g14<- ggplot(df_treat, aes(x=B_fragilis, y=Lacto_2))+geom_point()+geom_smooth(me
 g15<-ggplot(df_abundance, aes(x=B_acidifaciens, y=Lacto_1))+geom_point()+geom_smooth(method="lm")+ ggtitle(cor(df_abundance$B_acidifaciens,df_abundance$Lacto_1,use="complete.obs"))
 
 g16<-ggplot(df_abundance, aes(x=B_acidifaciens, y=Lacto_2))+geom_point()+geom_smooth(method="lm")+ ggtitle(cor(df_abundance$B_acidifaciens,df_abundance$Lacto_2,use="complete.obs"))
+
+OTU_in2<-c(OTU_in[2],OTU_in[4:6],OTU_in[8:9]
+
+ggplot(pd_OTU_sig%>%filter(OTU%in%OTU_in2), aes(x=TreatmentWeek, y=Abundance, fill=Family)) + geom_bar(stat="identity") + 
+     geom_errorbar(aes(ymin=Abundance-se, ymax=Abundance+se),width=.2, position=position_dodge(.9), alpha=.5) + 
+     ggtitle("Significant OTU")+
+     facet_wrap("OTU")+ coord_flip() + 
+     theme ()   
