@@ -60,9 +60,9 @@ names(df_abundance)[10] <-"Treatment"
 df_treat<-df_abundance%>%filter(Treatment=="IL10-SPF+BF")
 df_control<-df_abundance%>%filter(Treatment=="IL10-SPF")
 
-g1<-ggplot(df_control, aes(x=B_acidifaciens, y=S24_7_OTU1))+geom_point()+geom_smooth(method="lm") + ggtitle(cor(df_control$B_acidifaciens,df_control$S24_7_OTU1,use="complete.obs"))
+#g1<-ggplot(df_control, aes(x=B_acidifaciens, y=S24_7_OTU1))+geom_point()+geom_smooth(method="lm") + ggtitle(cor(df_control$B_acidifaciens,df_control$S24_7_OTU1,use="complete.obs"))
 
-g2<-ggplot(df_control, aes(x=B_acidifaciens, y=S24_7_OTU2))+geom_point()+geom_smooth(method="lm") + ggtitle(cor(df_control$B_acidifaciens,df_control$S24_7_OTU2,use="complete.obs"))
+#g2<-ggplot(df_control, aes(x=B_acidifaciens, y=S24_7_OTU2))+geom_point()+geom_smooth(method="lm") + ggtitle(cor(df_control$B_acidifaciens,df_control$S24_7_OTU2,use="complete.obs"))
 
 g3<-ggplot(df_treat, aes(x=B_fragilis, y=S24_7_OTU1))+geom_point()+geom_smooth(method="lm") + ggtitle(cor(df_treat$B_fragilis,df_treat$S24_7_OTU1,use="complete.obs"))
 
@@ -91,3 +91,18 @@ g12<-ggplot(df_abundance, aes(x=B_acidifaciens, y=S24_7_OTU2))+geom_point()+ ggt
 
 g11<-ggplot(df_abundance, aes(x=B_acidifaciens, y=S24_7_OTU1,color=Treatment))+geom_point()+ ggtitle(cor(df_abundance$B_acidifaciens,df_abundance$S24_7_OTU1,use="complete.obs"))
 +geom_smooth(method="lm")
+
+ggplot(df_treat, aes(x=B_fragilis, y=Erysi_1))+geom_point()+geom_smooth(method="lm") + ggtitle(cor(df_treat$B_fragilis,df_treat$Erysi_1,use="complete.obs"))
+`geom_smooth()` using formula 'y ~ x'
+#no correlation
+ggplot(df_treat, aes(x=B_fragilis, y=Erysi_2))+geom_point()+geom_smooth(method="lm") + ggtitle(cor(df_treat$B_fragilis,df_treat$Erysi_2,use="complete.obs"))
+`geom_smooth()` using formula 'y ~ x'
+#no correlation
+
+g13<- ggplot(df_treat, aes(x=B_fragilis, y=Lacto_1))+geom_point()+geom_smooth(method="lm") + ggtitle(cor(df_treat$B_fragilis,df_treat$Lacto_1,use="complete.obs"))
+
+g14<- ggplot(df_treat, aes(x=B_fragilis, y=Lacto_2))+geom_point()+geom_smooth(method="lm") + ggtitle(cor(df_treat$B_fragilis,df_treat$Lacto_2,use="complete.obs"))
+
+g15<-ggplot(df_abundance, aes(x=B_acidifaciens, y=Lacto_1))+geom_point()+geom_smooth(method="lm")+ ggtitle(cor(df_abundance$B_acidifaciens,df_abundance$Lacto_1,use="complete.obs"))
+
+g16<-ggplot(df_abundance, aes(x=B_acidifaciens, y=Lacto_2))+geom_point()+geom_smooth(method="lm")+ ggtitle(cor(df_abundance$B_acidifaciens,df_abundance$Lacto_2,use="complete.obs"))
