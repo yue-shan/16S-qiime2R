@@ -3,3 +3,17 @@ plot(sort(sample_sums(phylo), TRUE), type = "h",
      ylab = "Numbers of reads", xlab = "samples", ylim = c(0, 6000))
 #the "6000" here is the y-axis scale. It should be larger than the rarefication number. 
 #Should see that all samples have the same amount of reads. Otherwise check rarefication.
+
+
+# random subsampling
+set.seed(28132)
+phylo_rarefy = rarefy_even_depth(phylo, sample.size = 10000) 
+
+# sanity-check: for phylo_rarefy, all sum up to 10000 reads
+par(mfrow = c(1, 2))
+
+plot(sort(sample_sums(phylo), TRUE), type = "h", main = "Before rarefaction", 
+     ylab = "Numbers of reads", xlab = "samples", ylim = c(0, 30000))
+
+plot(sort(sample_sums(phylo_rarefy), TRUE), type = "h", main = "After rarefaction", 
+     ylab = "Numbers of reads", xlab = "samples", ylim = c(0, 12000))
